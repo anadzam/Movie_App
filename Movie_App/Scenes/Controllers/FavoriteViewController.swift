@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavoriteViewController.swift
 //  Movie_App
 //
 //  Created by Ani Dzamelashvili on 17.07.23.
@@ -7,14 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FavoriteViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        print("succesfully loaded")
+        view.backgroundColor = Constants.Colors.neutral_darkest_grey
     }
 
-
 }
-
