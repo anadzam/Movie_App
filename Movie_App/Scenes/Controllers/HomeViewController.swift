@@ -28,13 +28,24 @@ class HomeViewController: UIViewController {
         view.backgroundColor = Constants.Colors.neutral_black
         view.addSubview(label)
         view.addSubview(searchBar)
-        conffigureCollectionView()
+        configureCollectionView()
         setUpConstraints()
+        hideKeyboard()
     }
     
+    //MARK: - hideKeyboard
+    private func hideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
-    private func conffigureCollectionView() {
+    //MARK: - ConfigureCollectionView
+    private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
@@ -45,11 +56,12 @@ class HomeViewController: UIViewController {
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-      
+        
         
         view.addSubview(collectionView)
     }
-    
+
+    //MARK: - Set up constraints
     private func setUpConstraints() {
         setUpLabelConstraints()
         setUpCollectionViewConstraints()
@@ -81,13 +93,14 @@ class HomeViewController: UIViewController {
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             searchBar.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -22)
-        
+            
         ])
     }
     
     
 }
 
+//MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         10
@@ -95,10 +108,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath)
-//        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
+        //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
         return cell
     }
-
+    
 }
 
