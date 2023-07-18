@@ -19,6 +19,7 @@
 		B1741EC82A65563D000E7645 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741EC72A65563D000E7645 /* Constants.swift */; };
 		B1741ECA2A655B64000E7645 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741EC92A655B64000E7645 /* HomeViewController.swift */; };
 		B1741ECC2A655B73000E7645 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741ECB2A655B73000E7645 /* FavoriteViewController.swift */; };
+		B1935B482A66E642000C7C8E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1935B472A66E642000C7C8E /* SearchBar.swift */; };
 		B1D70EA02A669CDF00D9E573 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D70E9F2A669CDF00D9E573 /* HomeCollectionViewCell.swift */; };
 		B1D70EA22A669F2C00D9E573 /* homeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D70EA12A669F2C00D9E573 /* homeViewController+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		B1741EC72A65563D000E7645 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B1741EC92A655B64000E7645 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B1741ECB2A655B73000E7645 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		B1935B472A66E642000C7C8E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		B1D70E9F2A669CDF00D9E573 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D70EA12A669F2C00D9E573 /* homeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "homeViewController+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -174,9 +176,18 @@
 		B1741EC02A6555B4000E7645 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
+				B1935B462A66B6D3000C7C8E /* SearchBar */,
 				B1D70E9C2A669C7800D9E573 /* CollectionViewCells */,
+				B1935B472A66E642000C7C8E /* SearchBar.swift */,
 			);
 			path = "Custom UI";
+			sourceTree = "<group>";
+		};
+		B1935B462A66B6D3000C7C8E /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		B1D70E9C2A669C7800D9E573 /* CollectionViewCells */ = {
@@ -257,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1935B482A66E642000C7C8E /* SearchBar.swift in Sources */,
 				B1741EC62A65562E000E7645 /* UIView+Extensions.swift in Sources */,
 				B1741EA42A654E89000E7645 /* TabBarController.swift in Sources */,
 				B1741EC22A655611000E7645 /* UIColor+Extensions.swift in Sources */,
@@ -336,7 +348,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -390,7 +402,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -407,6 +419,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MZ9J697CR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Movie_App/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -435,6 +448,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MZ9J697CR7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Movie_App/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

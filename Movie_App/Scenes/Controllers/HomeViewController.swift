@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView!
+    let searchBar = SearchBar()
     
     
     private let label: UILabel = {
@@ -26,9 +27,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Constants.Colors.neutral_black
         view.addSubview(label)
+        view.addSubview(searchBar)
         conffigureCollectionView()
         setUpConstraints()
     }
+    
     
     
     private func conffigureCollectionView() {
@@ -50,6 +53,7 @@ class HomeViewController: UIViewController {
     private func setUpConstraints() {
         setUpLabelConstraints()
         setUpCollectionViewConstraints()
+        setUpSearchBarConstraints()
     }
     private func setUpLabelConstraints() {
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +71,17 @@ class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CollectionViewSizing.leading),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: CollectionViewSizing.trailing),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: CollectionViewSizing.bottom)
+        ])
+    }
+    
+    private func setUpSearchBarConstraints() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 19),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            searchBar.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -22)
+        
         ])
     }
     

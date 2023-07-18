@@ -28,7 +28,7 @@ extension HomeViewController {
     }
     
     enum CollectionViewSizing {
-        static let itemWidth: Int = 169
+        static let itemWidth: Int = 164
         static let itemHeight: Int = 269
         static let top: CGFloat = 16
         static let leading: CGFloat = 16

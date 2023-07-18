@@ -21,7 +21,9 @@ class TabBarController: UITabBarController {
     func setUpTabBar() {
         let homeVc = HomeViewController()
         let favoriteVc = FavoriteViewController()
-        self.setViewControllers([homeVc, favoriteVc], animated: false)
+        let navFavoriteVc = UINavigationController(rootViewController: favoriteVc)
+
+        self.setViewControllers([homeVc, navFavoriteVc], animated: false)
         
         guard let items = self.tabBar.items else {
             return
