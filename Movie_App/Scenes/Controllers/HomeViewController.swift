@@ -9,83 +9,81 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private var collectionView: UICollectionView?
-
+    private var collectionView: UICollectionView!
+    
     
     private let label: UILabel = {
         let label = UILabel()
-        label.text = "Movies"
+        label.text = Texts.label
         label.textColor = Constants.Colors.yellow_primary
-        label.font = .boldSystemFont(ofSize: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: labelSizing.fontSize)
+        
         return label
         
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.Colors.neutral_black
         view.addSubview(label)
-    
+        conffigureCollectionView()
         setUpConstraints()
-//        conffigureCollectionView()
     }
+    
     
     private func conffigureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        collectionView?.backgroundColor = .clear
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
         
-        guard let collectionView = collectionView else { return }
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "item")
-        collectionView.frame = view.bounds
-//        collectionView.backgroundColor = .green
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+      
+        
         view.addSubview(collectionView)
-////       collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
-//
-//        layout.scrollDirection = .vertical
-//        collectionView.setCollectionViewLayout(layout, animated: true)
-//        layout.itemSize = CGSize(width: 163.5, height: 226)
-//        collectionView.layer.cornerRadius = 16
     }
     
     private func setUpConstraints() {
         setUpLabelConstraints()
-//        setUpCollectionViewConstraints()
+        setUpCollectionViewConstraints()
     }
-    
     private func setUpLabelConstraints() {
+        label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 77),
-            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -293)
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: labelSizing.top),
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: labelSizing.leading),
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: labelSizing.trailing)
         ])
     }
-//    private func setUpCollectionViewConstraints() {
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
-//            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-//            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
-//        ])
-//    }
-
-
+    
+    private func setUpCollectionViewConstraints() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: CollectionViewSizing.top),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CollectionViewSizing.leading),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: CollectionViewSizing.trailing),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: CollectionViewSizing.bottom)
+        ])
+    }
+    
+    
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "item", for: indexPath)
-        cell.contentView.backgroundColor = Constants.Colors.yellow_primary
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath)
+//        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
+        cell.layer.masksToBounds = true
         return cell
     }
-    
+
 }
 
