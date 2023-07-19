@@ -89,10 +89,10 @@ class HomeViewController: UIViewController {
     private func setUpSearchBarConstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 19),
-            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            searchBar.bottomAnchor.constraint(equalTo: label.topAnchor, constant: -22)
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: SearchBarSizing.top),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: SearchBarSizing.leading),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: SearchBarSizing.trailing),
+            searchBar.bottomAnchor.constraint(equalTo: label.topAnchor, constant: SearchBarSizing.bottom)
             
         ])
     }
@@ -111,6 +111,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailVc = DetailViewController()
+        detailVc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(detailVc, animated: true)
+
+      
+
     }
     
 }

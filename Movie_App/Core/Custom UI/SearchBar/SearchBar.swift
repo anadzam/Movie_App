@@ -16,8 +16,8 @@ class SearchBar: UIView {
     
     private let placeHolder: UILabel = {
         let placeholder = UILabel()
-        placeholder.text = "Search"
-        placeholder.font = .systemFont(ofSize: 14)
+        placeholder.text = SearchBarAttributes.placeholder
+        placeholder.font = .systemFont(ofSize: SearchBarAttributes.placeholderFontSize)
         placeholder.sizeToFit()
         
         placeholder.textColor = Constants.Colors.neutral_light_grey
@@ -60,13 +60,13 @@ class SearchBar: UIView {
    
 
     private func addPadding() {
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 50))
+        let paddingView = UIView(frame: CGRect(x: .zero, y: .zero, width: SearchBarSizing.widthPadding , height: SearchBarSizing.heightPadding))
         searchBar.leftView = paddingView
         searchBar.leftViewMode = .always
 
     }
     private func setUpSearchBar() {
-        searchBar.layer.cornerRadius = 18
+        searchBar.layer.cornerRadius = SearchBarSizing.cornerRadius
         searchBar.textColor = Constants.Colors.neutral_light_grey
         searchBar.backgroundColor = .clear
         searchBar.backgroundColor = Constants.Colors.neutral_darkest_grey
@@ -78,7 +78,7 @@ class SearchBar: UIView {
     }
     
     private func setUpContainerView() {
-        containerView.layer.cornerRadius = 18
+        containerView.layer.cornerRadius = SearchBarSizing.cornerRadius
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .clear
     }
@@ -99,7 +99,7 @@ class SearchBar: UIView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 36)
+            containerView.heightAnchor.constraint(equalToConstant: ContainerViewSizing.height)
             
         ])
     }
@@ -107,9 +107,9 @@ class SearchBar: UIView {
     private func setUpSearchBarConstraints() {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2),
+            searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.leading),
            
-            searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -44),
+            searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
             searchBar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             
         ])
@@ -118,7 +118,7 @@ class SearchBar: UIView {
     private func setUpFilterButtonConstraints() {
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: containerView.topAnchor),
-            filterButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: 8),
+            filterButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: FilterButtonSizing.leading),
             filterButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             filterButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
             
@@ -128,10 +128,10 @@ class SearchBar: UIView {
     private func setUpSearchIconConstraints() {
         NSLayoutConstraint.activate([
             searchIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            searchIcon.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
-            searchIcon.trailingAnchor.constraint(equalTo: placeHolder.leadingAnchor, constant: -6),
-            searchIcon.widthAnchor.constraint(equalToConstant: 14),
-            searchIcon.heightAnchor.constraint(equalToConstant: 14)
+            searchIcon.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchIconSizing.leading),
+            searchIcon.trailingAnchor.constraint(equalTo: placeHolder.leadingAnchor, constant: SearchIconSizing.trailing),
+            searchIcon.widthAnchor.constraint(equalToConstant: SearchIconSizing.width),
+            searchIcon.heightAnchor.constraint(equalToConstant: SearchIconSizing.height)
             
         ])
     }
@@ -139,7 +139,7 @@ class SearchBar: UIView {
     private func setUpPlaceholderConstraints() {
         NSLayoutConstraint.activate([
             placeHolder.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            placeHolder.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 44)
+            placeHolder.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.placeholderLeading)
         ])
     }
 }

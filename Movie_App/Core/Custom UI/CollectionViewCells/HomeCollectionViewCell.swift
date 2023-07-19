@@ -56,6 +56,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         let favoritesButton = UIButton()
         favoritesButton.setImage(UIImage(named: Constants.AssetIdentifier.favoritesButton.rawValue), for: .normal)
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        favoritesButton.imageView?.contentMode = .scaleAspectFit
 //        favoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
         return favoritesButton
     }()
@@ -131,7 +132,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             favoritesButton.centerYAnchor.constraint(equalTo: movieTitle.centerYAnchor),
             favoritesButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 19.5),
-            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4.05)
+            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4.05),
+            favoritesButton.widthAnchor.constraint(equalToConstant: 21)
         ])
     }
     

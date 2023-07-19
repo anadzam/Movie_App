@@ -20,6 +20,8 @@
 		B1741ECA2A655B64000E7645 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741EC92A655B64000E7645 /* HomeViewController.swift */; };
 		B1741ECC2A655B73000E7645 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741ECB2A655B73000E7645 /* FavoriteViewController.swift */; };
 		B1935B482A66E642000C7C8E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1935B472A66E642000C7C8E /* SearchBar.swift */; };
+		B1935B4A2A670066000C7C8E /* SearchBar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1935B492A670066000C7C8E /* SearchBar+Extensions.swift */; };
+		B1935B4C2A6704EC000C7C8E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1935B4B2A6704EC000C7C8E /* DetailViewController.swift */; };
 		B1D70EA02A669CDF00D9E573 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D70E9F2A669CDF00D9E573 /* HomeCollectionViewCell.swift */; };
 		B1D70EA22A669F2C00D9E573 /* homeViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D70EA12A669F2C00D9E573 /* homeViewController+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 		B1741EC92A655B64000E7645 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B1741ECB2A655B73000E7645 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		B1935B472A66E642000C7C8E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		B1935B492A670066000C7C8E /* SearchBar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBar+Extensions.swift"; sourceTree = "<group>"; };
+		B1935B4B2A6704EC000C7C8E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B1D70E9F2A669CDF00D9E573 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D70EA12A669F2C00D9E573 /* homeViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "homeViewController+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +146,7 @@
 				B1741EA32A654E89000E7645 /* TabBarController.swift */,
 				B1741EC92A655B64000E7645 /* HomeViewController.swift */,
 				B1741ECB2A655B73000E7645 /* FavoriteViewController.swift */,
+				B1935B4B2A6704EC000C7C8E /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -153,6 +158,7 @@
 				B1741EC32A655623000E7645 /* UIImage+Extensions.swift */,
 				B1741EC52A65562E000E7645 /* UIView+Extensions.swift */,
 				B1D70EA12A669F2C00D9E573 /* homeViewController+Extensions.swift */,
+				B1935B492A670066000C7C8E /* SearchBar+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -178,7 +184,6 @@
 			children = (
 				B1935B462A66B6D3000C7C8E /* SearchBar */,
 				B1D70E9C2A669C7800D9E573 /* CollectionViewCells */,
-				B1935B472A66E642000C7C8E /* SearchBar.swift */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 		B1935B462A66B6D3000C7C8E /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
+				B1935B472A66E642000C7C8E /* SearchBar.swift */,
 			);
 			path = SearchBar;
 			sourceTree = "<group>";
@@ -277,8 +283,10 @@
 				B1D70EA02A669CDF00D9E573 /* HomeCollectionViewCell.swift in Sources */,
 				B1741EC42A655623000E7645 /* UIImage+Extensions.swift in Sources */,
 				B1741ECA2A655B64000E7645 /* HomeViewController.swift in Sources */,
+				B1935B4A2A670066000C7C8E /* SearchBar+Extensions.swift in Sources */,
 				B1741EAA2A654E89000E7645 /* Movie_App.xcdatamodeld in Sources */,
 				B1D70EA22A669F2C00D9E573 /* homeViewController+Extensions.swift in Sources */,
+				B1935B4C2A6704EC000C7C8E /* DetailViewController.swift in Sources */,
 				B1741EA22A654E89000E7645 /* SceneDelegate.swift in Sources */,
 				B1741EC82A65563D000E7645 /* Constants.swift in Sources */,
 			);

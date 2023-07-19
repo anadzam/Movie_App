@@ -22,6 +22,7 @@ class FavoriteViewController: UIViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "Favorite movies"
+        
 
         view.addSubview(noMoviesImage)
         setUpConstraints()
@@ -29,7 +30,7 @@ class FavoriteViewController: UIViewController {
       
     }
 
-    
+    //MARK: - Set Up Constraints
     private func setUpConstraints() {
         setUpImageViewConstraints()
     }

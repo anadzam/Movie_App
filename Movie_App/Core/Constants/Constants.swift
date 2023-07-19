@@ -21,6 +21,9 @@ enum Constants {
         case noFavorites
         case searchIcon
         case filterButton
+        case moviePoster
+        case clock
+        case trailerButton
     }
     enum Colors {
         static let yellow_primary = UIColor(hex: 0xF5C518)
@@ -28,6 +31,8 @@ enum Constants {
         static let neutral_black = UIColor(hex: 0x080808)
         static let neutral_grey = UIColor(hex: 0x808080)
         static let neutral_light_grey = UIColor(hex: 0xA5A5A5)
+        static let neutral_lighter_grey = UIColor(hex: 0xCACACA)
+        static let Neutral_Whisper = UIColor(hex: 0xEAEAEA)
     }
 //    
 //    enum TextView {

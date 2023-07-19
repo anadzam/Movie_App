@@ -44,4 +44,11 @@ extension HomeViewController {
         static let fontSize: CGFloat = 18
     }
     
+    enum SearchBarSizing {
+        static let top: CGFloat = 19
+        static let leading: CGFloat = 16
+        static let trailing: CGFloat = -16
+        static let bottom: CGFloat = -22
+    }
+    
 }
