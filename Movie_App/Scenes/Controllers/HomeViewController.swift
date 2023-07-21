@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView!
+    
     let searchBar = SearchBar()
     
     
@@ -29,6 +30,7 @@ class HomeViewController: UIViewController {
         view.addSubview(label)
         view.addSubview(searchBar)
         configureCollectionView()
+        
         setUpConstraints()
         hideKeyboard()
     }
@@ -44,22 +46,24 @@ class HomeViewController: UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: - ConfigureCollectionView
+//    MARK: - ConfigureCollectionView
     private func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
-        
-        
+
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
-        
+
+
         view.addSubview(collectionView)
     }
+ 
+
 
     //MARK: - Set up constraints
     private func setUpConstraints() {
@@ -86,6 +90,8 @@ class HomeViewController: UIViewController {
         ])
     }
     
+  
+    
     private func setUpSearchBarConstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -105,22 +111,22 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         10
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath)
         //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVc = DetailViewController()
         detailVc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(detailVc, animated: true)
 
-      
+
 
     }
-    
+
 }
 

@@ -24,6 +24,7 @@ enum Constants {
         case moviePoster
         case clock
         case trailerButton
+        case selectedFilter
     }
     enum Colors {
         static let yellow_primary = UIColor(hex: 0xF5C518)

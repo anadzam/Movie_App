@@ -11,6 +11,13 @@ import UIKit
 class SearchBar: UIView {
     private lazy var searchBar = UITextField()
     private lazy var containerView = UIView()
+    private var genreCollectionView: UICollectionView!
+   
+    var isGenreCollectionViewVisible: Bool = false
+     
+    
+   
+    let genres = ["Action", "Comedy", "Drama", "Romance", "Horror"]
     
     //MARK: - components
     
@@ -30,6 +37,7 @@ class SearchBar: UIView {
         let searchIcon = UIImageView()
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
         searchIcon.image = UIImage(assetIdentifier: Constants.AssetIdentifier.searchIcon)
+        
         return searchIcon
     }()
     
@@ -37,33 +45,73 @@ class SearchBar: UIView {
         let filterButton = UIButton()
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton.setImage(UIImage(assetIdentifier: Constants.AssetIdentifier.filterButton), for: .normal)
+        filterButton.addTarget(self, action: #selector(filterButtonTapped), for: .touchUpInside)
+        filterButton.isSelected = false
         return filterButton
     }()
     
+    
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-
+        isGenreCollectionViewVisible = false
+        
         addSubview(containerView)
         containerView.addSubview(searchBar)
         containerView.addSubview(filterButton)
         searchBar.addSubview(searchIcon)
         searchBar.addSubview(placeHolder)
         setUpContainerView()
+        configureGenreCollectionView()
+       
         setUpSearchBar()
+       
         setUpConstraints()
         addPadding()
+        genreCollectionView.isHidden = !isGenreCollectionViewVisible 
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
+    
+    
+    @objc private func filterButtonTapped() {
+        filterButton.isSelected.toggle()
+        isGenreCollectionViewVisible = filterButton.isSelected
+          genreCollectionView.isHidden = !isGenreCollectionViewVisible
+//
 
+        let imageName = filterButton.isSelected ? Constants.AssetIdentifier.selectedFilter : Constants.AssetIdentifier.filterButton
+        let image = UIImage(assetIdentifier: imageName)
+        filterButton.setImage(image, for: .normal)
+        
+    }
+ 
+    private func configureGenreCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 50, height: 21)
+  
+
+        genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        genreCollectionView.backgroundColor = .clear
+        genreCollectionView.register(GenreCollectionViewCell.self, forCellWithReuseIdentifier: GenreCollectionViewCell.identifier)
+        genreCollectionView.showsHorizontalScrollIndicator = false
+        genreCollectionView.showsVerticalScrollIndicator = false
+        genreCollectionView.dataSource = self
+        genreCollectionView.delegate = self
+        
+
+
+        containerView.addSubview(genreCollectionView)
+    }
+    
     private func addPadding() {
         let paddingView = UIView(frame: CGRect(x: .zero, y: .zero, width: SearchBarSizing.widthPadding , height: SearchBarSizing.heightPadding))
         searchBar.leftView = paddingView
         searchBar.leftViewMode = .always
-
+        
     }
     private func setUpSearchBar() {
         searchBar.layer.cornerRadius = SearchBarSizing.cornerRadius
@@ -91,6 +139,7 @@ class SearchBar: UIView {
         setUpPlaceholderConstraints()
         setUpSearchIconConstraints()
         setUpFilterButtonConstraints()
+        setUCollectionViewConstraints()
     }
     
     private func setUpContainerViewConstraints() {
@@ -99,7 +148,8 @@ class SearchBar: UIView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: ContainerViewSizing.height)
+//            containerView.heightAnchor.constraint(equalToConstant: 65)
+            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: ContainerViewSizing.height)
             
         ])
     }
@@ -108,9 +158,10 @@ class SearchBar: UIView {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.leading),
-           
+            
             searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
             searchBar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+           
             
         ])
     }
@@ -122,7 +173,21 @@ class SearchBar: UIView {
             filterButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             filterButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
             
-
+            
+        ])
+    }
+    
+    private func setUCollectionViewConstraints() {
+        genreCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            genreCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            genreCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
+         
+            genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20),
+            genreCollectionView.heightAnchor.constraint(equalToConstant: 21)
+            
+            
+            
         ])
     }
     private func setUpSearchIconConstraints() {
@@ -142,6 +207,8 @@ class SearchBar: UIView {
             placeHolder.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.placeholderLeading)
         ])
     }
+    
+
 }
 
 
@@ -159,8 +226,24 @@ extension SearchBar: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         if let searchText = searchBar.text, searchText.isEmpty {
-                placeHolder.isHidden = false
-            }
+            placeHolder.isHidden = false
+        }
     }
+    
+}
+
+extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        genres.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
+        cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
+        cell.genreButton.sizeToFit()
+        cell.layer.masksToBounds = true
+        return cell
+    }
+    
     
 }
