@@ -3,4 +3,117 @@
    uuid = "7166F20D-8FA9-4380-9AD6-F183BD2B93CF"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C19BC3BE-370F-47FC-A8DF-295BE2210453"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Core/Custom UI/SearchBar/SearchBar.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C19BC3BE-370F-47FC-A8DF-295BE2210453 - 4384534ff6a7d340"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.SearchBar.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Core/Custom%20UI/SearchBar/SearchBar.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "254"
+                  endingLineNumber = "254"
+                  offsetFromSymbolStart = "146">
+               </Location>
+               <Location
+                  uuid = "C19BC3BE-370F-47FC-A8DF-295BE2210453 - 4384534ff6a7d18a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.SearchBar.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Core/Custom%20UI/SearchBar/SearchBar.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8821DD8-2FA5-4190-AF38-C5AEE499C68E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Core/Custom UI/SearchBar/SearchBar.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A8821DD8-2FA5-4190-AF38-C5AEE499C68E - 4384534ff6a7d340"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.SearchBar.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Core/Custom%20UI/SearchBar/SearchBar.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "254"
+                  endingLineNumber = "254"
+                  offsetFromSymbolStart = "146">
+               </Location>
+               <Location
+                  uuid = "A8821DD8-2FA5-4190-AF38-C5AEE499C68E - 4384534ff6a7d340"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.SearchBar.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Core/Custom%20UI/SearchBar/SearchBar.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "254"
+                  endingLineNumber = "254"
+                  offsetFromSymbolStart = "385">
+               </Location>
+               <Location
+                  uuid = "A8821DD8-2FA5-4190-AF38-C5AEE499C68E - 4384534ff6a7d18a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.SearchBar.collectionView(_: __C.UICollectionView, didSelectItemAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Core/Custom%20UI/SearchBar/SearchBar.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "264"
+                  endingLineNumber = "264"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

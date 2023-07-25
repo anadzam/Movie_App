@@ -8,27 +8,26 @@
 import Foundation
 import UIKit
 
+protocol FilterButtonDelegate: AnyObject {
+    func filterButtonTapped(isSelected: Bool)
+}
 class SearchBar: UIView {
     private lazy var searchBar = UITextField()
     private lazy var containerView = UIView()
-    private var genreCollectionView: UICollectionView!
-   
-    var isGenreCollectionViewVisible: Bool = false
-     
+     var genreCollectionView: UICollectionView!
+    weak var filterButtonDelegate: FilterButtonDelegate?
     
-   
-    let genres = ["Action", "Comedy", "Drama", "Romance", "Horror"]
+    var isGenreCollectionViewVisible: Bool = false
+    let genres = ["Action", "Comedy", "Drama", "Romance", "Horror", "Crime", "Crime", "Crime", "Crime"]
+    
     
     //MARK: - components
-    
     private let placeHolder: UILabel = {
         let placeholder = UILabel()
         placeholder.text = SearchBarAttributes.placeholder
         placeholder.font = .systemFont(ofSize: SearchBarAttributes.placeholderFontSize)
         placeholder.sizeToFit()
-        
         placeholder.textColor = Constants.Colors.neutral_light_grey
-        
         placeholder.translatesAutoresizingMaskIntoConstraints = false
         return placeholder
     }()
@@ -54,61 +53,68 @@ class SearchBar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        isGenreCollectionViewVisible = false
-        
+
         addSubview(containerView)
         containerView.addSubview(searchBar)
         containerView.addSubview(filterButton)
         searchBar.addSubview(searchIcon)
         searchBar.addSubview(placeHolder)
         setUpContainerView()
-        configureGenreCollectionView()
-       
         setUpSearchBar()
-       
+        configureGenreCollectionView()
+        
         setUpConstraints()
         addPadding()
-        genreCollectionView.isHidden = !isGenreCollectionViewVisible 
+
+        genreCollectionView.isHidden = !isGenreCollectionViewVisible
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    //MARK: - Filter button tapped
     @objc private func filterButtonTapped() {
         filterButton.isSelected.toggle()
         isGenreCollectionViewVisible = filterButton.isSelected
-          genreCollectionView.isHidden = !isGenreCollectionViewVisible
-//
-
+        genreCollectionView.isHidden = !isGenreCollectionViewVisible
+        
         let imageName = filterButton.isSelected ? Constants.AssetIdentifier.selectedFilter : Constants.AssetIdentifier.filterButton
         let image = UIImage(assetIdentifier: imageName)
         filterButton.setImage(image, for: .normal)
         
+        filterButtonDelegate?.filterButtonTapped(isSelected: filterButton.isSelected)
+        
     }
- 
+    
     private func configureGenreCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 50, height: 21)
-  
-
+        
+       
         genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         genreCollectionView.backgroundColor = .clear
-        genreCollectionView.register(GenreCollectionViewCell.self, forCellWithReuseIdentifier: GenreCollectionViewCell.identifier)
-        genreCollectionView.showsHorizontalScrollIndicator = false
+        genreCollectionView.register(GenreCollectionViewCell.self,
+                                     forCellWithReuseIdentifier: GenreCollectionViewCell.identifier)
+         genreCollectionView.showsHorizontalScrollIndicator = false
         genreCollectionView.showsVerticalScrollIndicator = false
         genreCollectionView.dataSource = self
         genreCollectionView.delegate = self
+        genreCollectionView.isScrollEnabled = true
+        genreCollectionView.isUserInteractionEnabled = true
+        genreCollectionView.alwaysBounceVertical = true
         
-
-
-        containerView.addSubview(genreCollectionView)
+        //consider
+        addSubview(genreCollectionView)
     }
     
     private func addPadding() {
-        let paddingView = UIView(frame: CGRect(x: .zero, y: .zero, width: SearchBarSizing.widthPadding , height: SearchBarSizing.heightPadding))
+        let paddingView = UIView(frame: CGRect(x: .zero,
+                                               y: .zero,
+                                               width: SearchBarSizing.widthPadding,
+                                               height: SearchBarSizing.heightPadding)
+        )
         searchBar.leftView = paddingView
         searchBar.leftViewMode = .always
         
@@ -129,6 +135,7 @@ class SearchBar: UIView {
         containerView.layer.cornerRadius = SearchBarSizing.cornerRadius
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .clear
+        containerView.isUserInteractionEnabled = true
     }
     
     
@@ -148,7 +155,7 @@ class SearchBar: UIView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            containerView.heightAnchor.constraint(equalToConstant: 65)
+            //            containerView.heightAnchor.constraint(equalToConstant: 65)
             containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: ContainerViewSizing.height)
             
         ])
@@ -161,7 +168,7 @@ class SearchBar: UIView {
             
             searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
             searchBar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-           
+            
             
         ])
     }
@@ -181,9 +188,9 @@ class SearchBar: UIView {
         genreCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             genreCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
-            genreCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
-         
-            genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20),
+            genreCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 4),
+            
+            genreCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20),
             genreCollectionView.heightAnchor.constraint(equalToConstant: 21)
             
             
@@ -208,7 +215,7 @@ class SearchBar: UIView {
         ])
     }
     
-
+    
 }
 
 
@@ -218,9 +225,6 @@ extension SearchBar: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         placeHolder.isHidden = true
         
-    }
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -232,6 +236,7 @@ extension SearchBar: UITextFieldDelegate {
     
 }
 
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         genres.count
@@ -245,5 +250,19 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let cell = collectionView.cellForItem(at: indexPath) as? GenreCollectionViewCell {
+//
+//            cell.genreButton.isSelected.toggle()
+//
+//
+//            let buttonBackgroundColor = cell.genreButton.isSelected ? Constants.Colors.yellow_primary : .clear
+//            let titleColor = cell.genreButton.isSelected ? Constants.Colors.neutral_black : Constants.Colors.neutral_lighter_grey
+//            cell.genreButton.setTitleColor(titleColor, for: .normal)
+//            cell.genreButton.backgroundColor = buttonBackgroundColor
+//        }
+        print("selecteed")
+
+    }
     
 }
