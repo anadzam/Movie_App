@@ -11,21 +11,21 @@ class GenreCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "GenreCell"
     
-    var genreButton: UILabel = {
-        let genreButton = UILabel()
+    var genreButton: UIButton = {
+        let genreButton = UIButton()
         genreButton.translatesAutoresizingMaskIntoConstraints = false
-//        genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey, for: .normal)
-        genreButton.textColor = Constants.Colors.neutral_lighter_grey
+        genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey, for: .normal)
+//        genreButton.textColor = Constants.Colors.neutral_lighter_grey
        
         genreButton.layer.cornerRadius = 10
-        genreButton.textAlignment = .center
-//        genreButton.titleLabel?.font = .systemFont(ofSize: 10)
-        genreButton.font = .systemFont(ofSize: 10)
+//        genreButton.textAlignment = .center
+        genreButton.titleLabel?.font = .systemFont(ofSize: 10)
+//        genreButton.font = .systemFont(ofSize: 10)
         genreButton.layer.borderWidth = 1
-//        genreButton.titleLabel?.numberOfLines = 0
-//        genreButton.backgroundColor = .clear
+        genreButton.titleLabel?.numberOfLines = 0
+        genreButton.backgroundColor = .clear
         genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
-        genreButton.isUserInteractionEnabled = true
+        genreButton.isUserInteractionEnabled = false
 //        genreButton.addTarget(self, action: #selector(genreButtonPressed), for: .touchUpInside)
 //        genreButton.isSelected = false
         return genreButton
@@ -34,6 +34,8 @@ class GenreCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         contentView.addSubview(genreButton)
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 10
         
        
         setUpConstraints()

@@ -52,12 +52,12 @@ class HomeCollectionViewCell: UICollectionViewCell {
         return movieTitle
     }()
     
-    private let favoritesButton: UIButton = {
+    private lazy var favoritesButton: UIButton = {
         let favoritesButton = UIButton()
         favoritesButton.setImage(UIImage(named: Constants.AssetIdentifier.favoritesButton.rawValue), for: .normal)
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
         favoritesButton.imageView?.contentMode = .scaleAspectFit
-//        favoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(addToFavorites), for: .touchUpInside)
         return favoritesButton
     }()
     
@@ -77,9 +77,15 @@ class HomeCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    @objc func addToFavorites() {
-//
-//    }
+    @objc func addToFavorites() {
+        favoritesButton.isSelected.toggle()
+       
+        
+        let imageName = favoritesButton.isSelected ? Constants.AssetIdentifier.selectedFavoritesButton : Constants.AssetIdentifier.favoritesButton
+        let image = UIImage(assetIdentifier: imageName)
+        
+        favoritesButton.setImage(image, for: .normal)
+    }
 //
     private func setUpConstraints() {
         setUpImageViewConstraints()
