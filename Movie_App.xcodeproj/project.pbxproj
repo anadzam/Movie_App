@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B139A3952A703C2F00ED4683 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B139A3942A703C2F00ED4683 /* FavoriteCollectionViewCell.swift */; };
+		B139A3982A71520E00ED4683 /* LoadingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B139A3972A71520E00ED4683 /* LoadingStateView.swift */; };
 		B1741EA02A654E89000E7645 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741E9F2A654E89000E7645 /* AppDelegate.swift */; };
 		B1741EA22A654E89000E7645 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741EA12A654E89000E7645 /* SceneDelegate.swift */; };
 		B1741EA42A654E89000E7645 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1741EA32A654E89000E7645 /* TabBarController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B139A3942A703C2F00ED4683 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		B139A3972A71520E00ED4683 /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
 		B1741E9C2A654E89000E7645 /* Movie_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movie_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1741E9F2A654E89000E7645 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1741EA12A654E89000E7645 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +65,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B139A3922A703BFC00ED4683 /* GenreCollcetionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B1AEE8CB2A6A981D00BC91E0 /* GenreCollectionViewCell.swift */,
+			);
+			path = GenreCollcetionViewCell;
+			sourceTree = "<group>";
+		};
+		B139A3932A703C0B00ED4683 /* FavoriteCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				B139A3942A703C2F00ED4683 /* FavoriteCollectionViewCell.swift */,
+			);
+			path = FavoriteCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		B139A3962A7151F800ED4683 /* LoadingSate */ = {
+			isa = PBXGroup;
+			children = (
+				B139A3972A71520E00ED4683 /* LoadingStateView.swift */,
+			);
+			path = LoadingSate;
+			sourceTree = "<group>";
+		};
 		B1741E932A654E89000E7645 = {
 			isa = PBXGroup;
 			children = (
@@ -184,9 +212,11 @@
 		B1741EC02A6555B4000E7645 /* Custom UI */ = {
 			isa = PBXGroup;
 			children = (
+				B139A3962A7151F800ED4683 /* LoadingSate */,
+				B139A3932A703C0B00ED4683 /* FavoriteCollectionViewCell */,
 				B1935B462A66B6D3000C7C8E /* SearchBar */,
-				B1D70E9C2A669C7800D9E573 /* CollectionViewCells */,
-				B1AEE8CB2A6A981D00BC91E0 /* GenreCollectionViewCell.swift */,
+				B1D70E9C2A669C7800D9E573 /* HomeCollectionViewCells */,
+				B139A3922A703BFC00ED4683 /* GenreCollcetionViewCell */,
 			);
 			path = "Custom UI";
 			sourceTree = "<group>";
@@ -199,12 +229,12 @@
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
-		B1D70E9C2A669C7800D9E573 /* CollectionViewCells */ = {
+		B1D70E9C2A669C7800D9E573 /* HomeCollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				B1D70E9F2A669CDF00D9E573 /* HomeCollectionViewCell.swift */,
 			);
-			path = CollectionViewCells;
+			path = HomeCollectionViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,7 +314,9 @@
 				B1741EC22A655611000E7645 /* UIColor+Extensions.swift in Sources */,
 				B1741EA02A654E89000E7645 /* AppDelegate.swift in Sources */,
 				B1741ECC2A655B73000E7645 /* FavoriteViewController.swift in Sources */,
+				B139A3952A703C2F00ED4683 /* FavoriteCollectionViewCell.swift in Sources */,
 				B1D70EA02A669CDF00D9E573 /* HomeCollectionViewCell.swift in Sources */,
+				B139A3982A71520E00ED4683 /* LoadingStateView.swift in Sources */,
 				B1741EC42A655623000E7645 /* UIImage+Extensions.swift in Sources */,
 				B1741ECA2A655B64000E7645 /* HomeViewController.swift in Sources */,
 				B1935B4A2A670066000C7C8E /* SearchBar+Extensions.swift in Sources */,

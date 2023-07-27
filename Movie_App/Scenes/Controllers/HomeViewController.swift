@@ -38,6 +38,7 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
         
         view.addSubview(label)
         searchBar.isUserInteractionEnabled = true
+        
         searchBar.filterButtonDelegate = self
         configureCollectionView()
         setUpConstraints()
@@ -49,12 +50,16 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
     
     func filterButtonTapped(isSelected: Bool) {
         
+//        searchBar.genreCollectionView.isHidden = !isSelected
+        
         if isSelected {
             NSLayoutConstraint.deactivate(labelConstraints)
             NSLayoutConstraint.deactivate(collectionViewConstraints)
             NSLayoutConstraint.activate(scrolledConstraints)
+//         
+           
         } else {
-            
+
             NSLayoutConstraint.deactivate(scrolledConstraints)
             NSLayoutConstraint.activate(labelConstraints)
             NSLayoutConstraint.activate(collectionViewConstraints)
@@ -131,6 +136,7 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: SearchBarSizing.top),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: SearchBarSizing.leading),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: SearchBarSizing.trailing),
+
             
         ])
     }
@@ -161,7 +167,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) 
         //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
         return cell

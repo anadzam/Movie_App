@@ -13,13 +13,14 @@ protocol FilterButtonDelegate: AnyObject {
 }
 class SearchBar: UIView {
     private lazy var searchBar = UITextField()
-    private lazy var containerView = UIView()
+     lazy var containerView = UIView()
      var genreCollectionView: UICollectionView!
     weak var filterButtonDelegate: FilterButtonDelegate?
     
     var isGenreCollectionViewVisible: Bool = false
     let genres = ["Action", "Comedy", "Drama", "Romance", "Horror", "Crime", "Crime", "Crime", "Crime"]
     
+   
     
     //MARK: - components
     private let placeHolder: UILabel = {
@@ -40,7 +41,7 @@ class SearchBar: UIView {
         return searchIcon
     }()
     
-    private let filterButton: UIButton = {
+    private lazy var filterButton: UIButton = {
         let filterButton = UIButton()
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton.setImage(UIImage(assetIdentifier: Constants.AssetIdentifier.filterButton), for: .normal)
@@ -103,10 +104,11 @@ class SearchBar: UIView {
         genreCollectionView.delegate = self
         genreCollectionView.isScrollEnabled = true
         genreCollectionView.isUserInteractionEnabled = true
-        genreCollectionView.alwaysBounceVertical = true
+        
         
         //consider
         addSubview(genreCollectionView)
+
     }
     
     private func addPadding() {
@@ -137,7 +139,7 @@ class SearchBar: UIView {
         containerView.backgroundColor = .clear
         containerView.isUserInteractionEnabled = true
     }
-    
+
     
     //MARK: - Set Up Constraints
     private func setUpConstraints() {
@@ -155,9 +157,9 @@ class SearchBar: UIView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            //            containerView.heightAnchor.constraint(equalToConstant: 65)
-            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: ContainerViewSizing.height)
-            
+                        containerView.heightAnchor.constraint(equalToConstant: 65)
+//            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: ContainerViewSizing.height)
+
         ])
     }
     
@@ -165,9 +167,8 @@ class SearchBar: UIView {
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.leading),
-            
             searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
-            searchBar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            searchBar.heightAnchor.constraint(equalToConstant: 36)
             
             
         ])
@@ -177,7 +178,7 @@ class SearchBar: UIView {
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: containerView.topAnchor),
             filterButton.leadingAnchor.constraint(equalTo: searchBar.trailingAnchor, constant: FilterButtonSizing.leading),
-            filterButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            filterButton.heightAnchor.constraint(equalToConstant: 36),
             filterButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
             
             
@@ -187,10 +188,9 @@ class SearchBar: UIView {
     private func setUCollectionViewConstraints() {
         genreCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            genreCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
-            genreCollectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 4),
-            
-            genreCollectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: 20),
+            genreCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
+            genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20),
+            genreCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             genreCollectionView.heightAnchor.constraint(equalToConstant: 21)
             
             
@@ -199,7 +199,7 @@ class SearchBar: UIView {
     }
     private func setUpSearchIconConstraints() {
         NSLayoutConstraint.activate([
-            searchIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            searchIcon.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
             searchIcon.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchIconSizing.leading),
             searchIcon.trailingAnchor.constraint(equalTo: placeHolder.leadingAnchor, constant: SearchIconSizing.trailing),
             searchIcon.widthAnchor.constraint(equalToConstant: SearchIconSizing.width),
@@ -210,7 +210,7 @@ class SearchBar: UIView {
     
     private func setUpPlaceholderConstraints() {
         NSLayoutConstraint.activate([
-            placeHolder.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            placeHolder.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.placeholderLeading)
         ])
     }
@@ -244,25 +244,26 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
-        cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
+        cell.genreButton.text = genres[indexPath.item]
         cell.genreButton.sizeToFit()
         cell.layer.masksToBounds = true
+        
         return cell
     }
     
+   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedItem = genres[indexPath.row]
+                
 //        if let cell = collectionView.cellForItem(at: indexPath) as? GenreCollectionViewCell {
-//
 //            cell.genreButton.isSelected.toggle()
-//
-//
 //            let buttonBackgroundColor = cell.genreButton.isSelected ? Constants.Colors.yellow_primary : .clear
 //            let titleColor = cell.genreButton.isSelected ? Constants.Colors.neutral_black : Constants.Colors.neutral_lighter_grey
 //            cell.genreButton.setTitleColor(titleColor, for: .normal)
 //            cell.genreButton.backgroundColor = buttonBackgroundColor
 //        }
-        print("selecteed")
-
+        print(selectedItem)
     }
+
     
 }

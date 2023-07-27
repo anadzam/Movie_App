@@ -9,6 +9,7 @@ import UIKit
 
 class FavoriteViewController: UIViewController {
     private var favoriteCollectionView: UICollectionView!
+    let loadingState = LoadingStateView()
     
     
     private let noMoviesImage: UIImageView = {
@@ -18,20 +19,24 @@ class FavoriteViewController: UIViewController {
         return noMoviesImage
     }()
     
+//    private func confiugureLoadingView() {
+//        view.addSubview(laodingState)
+//    }
+    
     private func configureFavoriteCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 164, height: 269)
         layout.scrollDirection = .vertical
         
         
-        //        favoriteCollectionView.dataSource = self
-        //        favoriteCollectionView.delegate = self
-        favoriteCollectionView.translatesAutoresizingMaskIntoConstraints = false
+              
+     
         favoriteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         favoriteCollectionView.backgroundColor = .clear
-        //        favoriteCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
+                favoriteCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         
-        
+        favoriteCollectionView.dataSource = self
+        favoriteCollectionView.delegate = self
         
         view.addSubview(favoriteCollectionView)
         
@@ -46,17 +51,24 @@ class FavoriteViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "Favorite movies"
         
+        view.addSubview(loadingState)
         
-        view.addSubview(noMoviesImage)
+//        view.addSubview(noMoviesImage)
+       configureFavoriteCollectionView()
         setUpConstraints()
         
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadingState.animateLoadingState()
+    }
     
     //MARK: - Set Up Constraints
     private func setUpConstraints() {
-        setUpImageViewConstraints()
+//        setUpImageViewConstraints()
 //        setUpFavoritesCollectionConstraints()
+        setUpLoadingViewConstraints()
     }
     
     private func setUpImageViewConstraints() {
@@ -69,27 +81,39 @@ class FavoriteViewController: UIViewController {
     }
     
     private func setUpFavoritesCollectionConstraints() {
+        favoriteCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             favoriteCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             favoriteCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             favoriteCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 16)
+            favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
-        
+    }
+    private func setUpLoadingViewConstraints() {
+        loadingState.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingState.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            loadingState.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            
+        ])
     }
     
     
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-//extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-////
-//    }
+extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        2
 //
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-////
-//    }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //
-//
-//}
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+        cell.layer.masksToBounds = true
+        return cell
+    }
+
+
+}
