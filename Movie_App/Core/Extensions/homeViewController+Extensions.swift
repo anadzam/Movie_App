@@ -51,4 +51,8 @@ extension HomeViewController {
         static let bottom: CGFloat = -22
     }
     
+    enum Sizing {
+        static let scrollSpacing: CGFloat = 30
+    }
+    
 }

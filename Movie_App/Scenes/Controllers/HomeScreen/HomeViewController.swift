@@ -13,8 +13,8 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
     private var labelConstraints: [NSLayoutConstraint] = []
     private var collectionViewConstraints: [NSLayoutConstraint] = []
     private var scrolledConstraints: [NSLayoutConstraint] = []
-    let offsetToScroll: CGFloat = 30
-    
+    let offsetToScroll: CGFloat = Sizing.scrollSpacing
+    private let viewModel = HomeViewModel()
     
     
     
@@ -49,15 +49,13 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
     
     
     func filterButtonTapped(isSelected: Bool) {
-        
-//        searchBar.genreCollectionView.isHidden = !isSelected
+
         
         if isSelected {
             NSLayoutConstraint.deactivate(labelConstraints)
             NSLayoutConstraint.deactivate(collectionViewConstraints)
             NSLayoutConstraint.activate(scrolledConstraints)
-//         
-           
+
         } else {
 
             NSLayoutConstraint.deactivate(scrolledConstraints)
@@ -163,13 +161,16 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        viewModel.movieModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) 
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
         //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
+        
+        cell.configure(with: viewModel.movieModel[indexPath.row])
+
         return cell
     }
     

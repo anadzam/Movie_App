@@ -13,43 +13,43 @@ class HomeCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(assetIdentifier: Constants.AssetIdentifier.movieImage)
         return imageView
     }()
     
     private let genreLabel: UILabel = {
         let genreLabel = UILabel()
-        genreLabel.layer.cornerRadius = 12
+        genreLabel.layer.cornerRadius = GenreLabelSizing.cornerRadius
         genreLabel.layer.masksToBounds = true
-        genreLabel.backgroundColor = Constants.Colors.yellow_primary
-        genreLabel.text = "Comedy"
-        genreLabel.font = .boldSystemFont(ofSize: 10)
-        genreLabel.textAlignment = .center
-        genreLabel.numberOfLines = 0
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
+        genreLabel.backgroundColor = Constants.Colors.yellow_primary
+        genreLabel.font = .boldSystemFont(ofSize: CellFontSize.genreFontSize)
+        genreLabel.numberOfLines = 1
+        genreLabel.textAlignment = .center
+      
+        genreLabel.sizeToFit()
+        
+        
         return genreLabel
     }()
     
     private let movieTitle: UILabel = {
         let movieTitle = UILabel()
-        movieTitle.text = "The Boss Baby"
-        movieTitle.font = .boldSystemFont(ofSize: 14)
+        movieTitle.font = .boldSystemFont(ofSize: CellFontSize.movieTitleFontSize)
         movieTitle.textColor = .white
         movieTitle.textAlignment = .left
-        movieTitle.numberOfLines = 0
+        movieTitle.numberOfLines = .zero
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         return movieTitle
     }()
     
     private let movieYearLabel: UILabel = {
-        let movieTitle = UILabel()
-        movieTitle.text = "2017"
-        movieTitle.font = .systemFont(ofSize: 12)
-        movieTitle.textColor = Constants.Colors.neutral_grey
-        movieTitle.textAlignment = .center
-        movieTitle.numberOfLines = 0
-        movieTitle.translatesAutoresizingMaskIntoConstraints = false
-        return movieTitle
+        let movieYearLabel = UILabel()
+        movieYearLabel.font = .systemFont(ofSize: CellFontSize.movieLabelFontSize)
+        movieYearLabel.textColor = Constants.Colors.neutral_grey
+        movieYearLabel.textAlignment = .center
+        movieYearLabel.numberOfLines = .zero
+        movieYearLabel.translatesAutoresizingMaskIntoConstraints = false
+        return         movieYearLabel
     }()
     
     private lazy var favoritesButton: UIButton = {
@@ -79,14 +79,26 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     @objc func addToFavorites() {
         favoritesButton.isSelected.toggle()
-       
+        
         
         let imageName = favoritesButton.isSelected ? Constants.AssetIdentifier.selectedFavoritesButton : Constants.AssetIdentifier.favoritesButton
         let image = UIImage(assetIdentifier: imageName)
         
         favoritesButton.setImage(image, for: .normal)
+        
+        
     }
-//
+    
+    func configure(with movieModel: MovieModel) {
+        imageView.image = UIImage(named: movieModel.imageView)
+        genreLabel.text = movieModel.genreLabel
+        genreLabel.sizeToFit()
+     
+        movieTitle.text = movieModel.moviewTitle
+        movieYearLabel.text = movieModel.movieYearLabel
+        
+    }
+    //
     private func setUpConstraints() {
         setUpImageViewConstraints()
         setUpGenreLabelConstraints()
@@ -98,7 +110,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     private func setUpImageViewConstraints() {
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -43),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: ImageViewSizing.bottom),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
@@ -106,23 +118,26 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpGenreLabelConstraints() {
+       
         NSLayoutConstraint.activate([
-            genreLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            genreLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -238),
-            genreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 58),
-            genreLabel.heightAnchor.constraint(equalToConstant: 21),
-            genreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
+            genreLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: GenreLabelSizing.top),
+            genreLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: GenreLabelSizing.bottom),
+            genreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: GenreLabelSizing.width),
+           
+            genreLabel.heightAnchor.constraint(equalToConstant: GenreLabelSizing.height),
+            genreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: GenreLabelSizing.trailing)
         ])
-        
+
     }
+
     
     private func setUpMovieTitleConstraints() {
         NSLayoutConstraint.activate([
-            movieTitle.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
-            movieTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            movieTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            movieTitle.heightAnchor.constraint(equalToConstant: 23),
-            movieTitle.widthAnchor.constraint(equalToConstant: 127)
+            movieTitle.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: MovieTitleSizing.top),
+            movieTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: MovieTitleSizing.leading),
+            movieTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: MovieTitleSizing.bottom),
+            movieTitle.heightAnchor.constraint(equalToConstant: MovieTitleSizing.height),
+            movieTitle.widthAnchor.constraint(equalToConstant: MovieTitleSizing.width)
         ])
     }
     
@@ -130,16 +145,16 @@ class HomeCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             movieYearLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor),
             movieYearLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            movieYearLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            movieYearLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: MovieYearLabelSizing.leading),
         ])
     }
     
     private func setUpFavoritesButtonConstraints() {
         NSLayoutConstraint.activate([
             favoritesButton.centerYAnchor.constraint(equalTo: movieTitle.centerYAnchor),
-            favoritesButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 19.5),
-            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4.05),
-            favoritesButton.widthAnchor.constraint(equalToConstant: 21)
+            favoritesButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: FavoriteButtonSizing.bottom),
+            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: FavoriteButtonSizing.trailing),
+            favoritesButton.widthAnchor.constraint(equalToConstant: FavoriteButtonSizing.width)
         ])
     }
     

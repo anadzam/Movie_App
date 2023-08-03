@@ -27,8 +27,8 @@ class SearchBar: UIView {
     //MARK: - components
     private let placeHolder: UILabel = {
         let placeholder = UILabel()
-        placeholder.text = SearchBarAttributes.placeholder
-        placeholder.font = .systemFont(ofSize: SearchBarAttributes.placeholderFontSize)
+        placeholder.text = SearchBarAttribute.placeholder
+        placeholder.font = .systemFont(ofSize: SearchBarFonts.placeholderFontSize)
         placeholder.sizeToFit()
         placeholder.textColor = Constants.Colors.neutral_light_grey
         placeholder.translatesAutoresizingMaskIntoConstraints = false
@@ -55,11 +55,11 @@ class SearchBar: UIView {
     private lazy var clearButton: UIButton = {
         let clearButton = UIButton()
         
-        clearButton.setTitle("cancel", for: .normal)
+        clearButton.setTitle(SearchBarAttribute.cancelButtonTitle, for: .normal)
         clearButton.clipsToBounds = true
        
-        clearButton.titleLabel?.numberOfLines = 0
-        clearButton.titleLabel?.font = .systemFont(ofSize: 10)
+        clearButton.titleLabel?.numberOfLines = .zero
+        clearButton.titleLabel?.font = .systemFont(ofSize: SearchBarFonts.clearButtonFontSize)
         clearButton.titleLabel?.textColor = Constants.Colors.Neutral_Whisper
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
@@ -82,7 +82,6 @@ class SearchBar: UIView {
         configureGenreCollectionView()
         setUpConstraints()
         addPadding()
-//        clearButton.isHidden = true
         clearButton.isHidden = true
         genreCollectionView.isHidden = !isGenreCollectionViewVisible
     }
@@ -114,7 +113,7 @@ class SearchBar: UIView {
     private func configureGenreCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50, height: 21)
+        layout.itemSize = CGSize(width: CollectionViewSizing.widthPadding, height: CollectionViewSizing.heightPadding)
         
         
         genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -191,7 +190,7 @@ class SearchBar: UIView {
             searchTextfield.topAnchor.constraint(equalTo: containerView.topAnchor),
             searchTextfield.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.leading),
             searchTextfield.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
-            searchTextfield.heightAnchor.constraint(equalToConstant: 36)
+            searchTextfield.heightAnchor.constraint(equalToConstant: SearchBarSizing.height)
             
             
         ])
@@ -201,11 +200,9 @@ class SearchBar: UIView {
         NSLayoutConstraint.activate([
         
             clearButton.centerYAnchor.constraint(equalTo: searchTextfield.centerYAnchor),
-            clearButton.heightAnchor.constraint(equalToConstant: 18),
-            clearButton.widthAnchor.constraint(equalToConstant: 36),
-
-            clearButton.leadingAnchor.constraint(equalTo: searchTextfield.trailingAnchor, constant: 5)
-            
+            clearButton.heightAnchor.constraint(equalToConstant: ClearButtonSizing.heigth),
+            clearButton.widthAnchor.constraint(equalToConstant: ClearButtonSizing.width),
+            clearButton.leadingAnchor.constraint(equalTo: searchTextfield.trailingAnchor, constant: ClearButtonSizing.leading)
             
         ])
     }
@@ -215,7 +212,7 @@ class SearchBar: UIView {
         NSLayoutConstraint.activate([
             filterButton.topAnchor.constraint(equalTo: containerView.topAnchor),
             filterButton.leadingAnchor.constraint(equalTo: searchTextfield.trailingAnchor, constant: FilterButtonSizing.leading),
-            filterButton.heightAnchor.constraint(equalToConstant: 36),
+            filterButton.heightAnchor.constraint(equalToConstant: FilterButtonSizing.height),
             filterButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
             
             
@@ -225,10 +222,10 @@ class SearchBar: UIView {
     private func setUCollectionViewConstraints() {
         genreCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            genreCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 4),
-            genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20),
+            genreCollectionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: CollectionViewSizing.leading),
+            genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CollectionViewSizing.trailing),
             genreCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            genreCollectionView.heightAnchor.constraint(equalToConstant: 21)
+            genreCollectionView.heightAnchor.constraint(equalToConstant: CollectionViewSizing.height)
             
             
             

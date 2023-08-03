@@ -17,12 +17,16 @@ extension SearchBar {
         static let failedTextColor = UIColor(hex: 0x676767)
         
     }
-    enum SearchBarAttributes {
+    enum SearchBarAttribute {
         static let placeholder: String = "Search"
-        static let placeholderFontSize: CGFloat = 16
-        
-       
+        static let cancelButtonTitle: String = "cancel"
     }
+    enum SearchBarFonts {
+        static let clearButtonFontSize: CGFloat = 10
+        static let placeholderFontSize: CGFloat = 16
+    
+    }
+    
     enum SearchBarSizing {
         static let widthPadding: CGFloat = 44
         static let heightPadding: CGFloat = 50
@@ -30,6 +34,7 @@ extension SearchBar {
         static let leading: CGFloat = 2
         static let trailing: CGFloat = 44
         static let placeholderLeading: CGFloat = 44
+        static let height: CGFloat = 36
     }
     
     enum ContainerViewSizing {
@@ -38,11 +43,26 @@ extension SearchBar {
     
     enum FilterButtonSizing {
         static let leading: CGFloat = 8
+        static let height: CGFloat = 36
     }
     enum SearchIconSizing {
         static let leading: CGFloat = 24
         static let trailing: CGFloat = -6
         static let width: CGFloat = 14
         static let height: CGFloat = 14
+    }
+    
+    enum CollectionViewSizing {
+        static let widthPadding: CGFloat = 50
+        static let heightPadding: CGFloat = 21
+        static let height: CGFloat = 21
+        static let leading: CGFloat = 4
+        static let trailing: CGFloat = 20
+      
+    }
+    enum ClearButtonSizing {
+        static let heigth: CGFloat = 18
+        static let width: CGFloat = 36
+        static let leading: CGFloat = 5
     }
 }

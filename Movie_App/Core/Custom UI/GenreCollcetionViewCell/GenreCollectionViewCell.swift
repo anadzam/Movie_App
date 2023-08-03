@@ -17,12 +17,12 @@ class GenreCollectionViewCell: UICollectionViewCell {
         genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey, for: .normal)
 //        genreButton.textColor = Constants.Colors.neutral_lighter_grey
        
-        genreButton.layer.cornerRadius = 10
+        genreButton.layer.cornerRadius = GenreButtonSizing.cornerRadius
 //        genreButton.textAlignment = .center
-        genreButton.titleLabel?.font = .systemFont(ofSize: 10)
+        genreButton.titleLabel?.font = .systemFont(ofSize: GenreButtonSizing.fontSize)
 //        genreButton.font = .systemFont(ofSize: 10)
         genreButton.layer.borderWidth = 1
-        genreButton.titleLabel?.numberOfLines = 0
+        genreButton.titleLabel?.numberOfLines = .zero
         genreButton.backgroundColor = .clear
         genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
         genreButton.isUserInteractionEnabled = false
@@ -35,7 +35,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         contentView.addSubview(genreButton)
         self.clipsToBounds = true
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = GenreButtonSizing.cornerRadius
         
        
         setUpConstraints()
@@ -67,3 +67,9 @@ class GenreCollectionViewCell: UICollectionViewCell {
 }
 
 
+extension GenreCollectionViewCell {
+    enum GenreButtonSizing {
+        static let cornerRadius: CGFloat = 10
+        static let fontSize: CGFloat = 10
+    }
+}

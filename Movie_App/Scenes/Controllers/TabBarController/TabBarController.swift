@@ -17,7 +17,7 @@ class TabBarController: UITabBarController {
         setUpTabBar()
         
     }
-    
+  
     func setUpTabBar() {
         let homeVc = HomeViewController()
         let favoriteVc = FavoriteViewController()
@@ -36,8 +36,16 @@ class TabBarController: UITabBarController {
             let imageName = tabBaritem[index].rawValue
             let selectedImageName = selectedTabBarItem[index].rawValue
             
-            
+        
+
             item.image = UIImage(named: imageName)
+            
+            //need to fix
+            item.landscapeImagePhone = UIImage(named: imageName)
+            
+        
+            
+          
             item.selectedImage = UIImage(named: selectedImageName)
         }
         

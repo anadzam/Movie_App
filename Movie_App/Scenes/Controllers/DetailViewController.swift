@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
         movieTitle.text = "The Atonement"
         movieTitle.textColor = .white
         movieTitle.textAlignment = .left
-        movieTitle.font = .boldSystemFont(ofSize: 20)
+        movieTitle.font = .boldSystemFont(ofSize: MovieTitleSizing.fontSize)
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         return movieTitle
     }()
@@ -32,12 +32,12 @@ class DetailViewController: UIViewController {
         ratingLabel.textColor = Constants.Colors.neutral_lighter_grey
         ratingLabel.backgroundColor = Constants.Colors.neutral_darkest_grey
         ratingLabel.textAlignment = .center
-        ratingLabel.font = .systemFont(ofSize: 14)
+        ratingLabel.font = .systemFont(ofSize: RatingLabelSizing.fontSize)
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let finalString = NSAttributedString.attributedString(withIconNamed: "ratingIcon", text: "7.9")
         ratingLabel.attributedText = finalString
-        ratingLabel.layer.cornerRadius = 14
+        ratingLabel.layer.cornerRadius = RatingLabelSizing.cornerRadius
         ratingLabel.layer.masksToBounds = true
         
         return ratingLabel
@@ -50,10 +50,10 @@ class DetailViewController: UIViewController {
         genreLabel.textColor = Constants.Colors.neutral_lighter_grey
         genreLabel.backgroundColor = Constants.Colors.neutral_darkest_grey
         genreLabel.textAlignment = .center
-        genreLabel.font = .systemFont(ofSize: 14)
+        genreLabel.font = .systemFont(ofSize: GenreLabelSizing.fontSize)
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         genreLabel.text = "Romance"
-        genreLabel.layer.cornerRadius = 14
+        genreLabel.layer.cornerRadius = GenreLabelSizing.cornerRadius
         genreLabel.layer.masksToBounds = true
         
         return genreLabel
@@ -64,7 +64,7 @@ class DetailViewController: UIViewController {
         movieDuration.textColor = Constants.Colors.neutral_lighter_grey
         movieDuration.backgroundColor = Constants.Colors.neutral_darkest_grey
         movieDuration.textAlignment = .center
-        movieDuration.font = .systemFont(ofSize: 14)
+        movieDuration.font = .systemFont(ofSize: MovieDurationLabelSizing.fontSize)
         movieDuration.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -88,7 +88,7 @@ class DetailViewController: UIViewController {
         finalString.append(textString)
         
         movieDuration.attributedText = finalString
-        movieDuration.layer.cornerRadius = 14
+        movieDuration.layer.cornerRadius = MovieDurationLabelSizing.cornerRadius
         movieDuration.layer.masksToBounds = true
         
         return movieDuration
@@ -100,9 +100,9 @@ class DetailViewController: UIViewController {
         movieYear.textColor =  Constants.Colors.neutral_lighter_grey
         movieYear.backgroundColor = Constants.Colors.neutral_darkest_grey
         movieYear.textAlignment = .center
-        movieYear.font = .systemFont(ofSize: 14)
+        movieYear.font = .systemFont(ofSize: MovieYearLabelSizing.fontSize)
         movieYear.translatesAutoresizingMaskIntoConstraints = false
-        movieYear.layer.cornerRadius = 14
+        movieYear.layer.cornerRadius = MovieYearLabelSizing.cornerRadius
         movieYear.layer.masksToBounds = true
         
         return movieYear
@@ -113,7 +113,7 @@ class DetailViewController: UIViewController {
         aboutMovieLabel.text = "About movie"
         aboutMovieLabel.textColor =  Constants.Colors.Neutral_Whisper
         aboutMovieLabel.textAlignment = .left
-        aboutMovieLabel.font = .boldSystemFont(ofSize: 16)
+        aboutMovieLabel.font = .boldSystemFont(ofSize: AboutMovieLabelSizing.fontSize)
         aboutMovieLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return aboutMovieLabel
@@ -126,9 +126,9 @@ class DetailViewController: UIViewController {
         """
         descriptionLabel.textColor =  Constants.Colors.neutral_lighter_grey
         descriptionLabel.textAlignment = .left
-        descriptionLabel.font = .systemFont(ofSize: 16)
+        descriptionLabel.font = .systemFont(ofSize: DescriptionLabelSizing.fontSize)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.numberOfLines = 0
+        descriptionLabel.numberOfLines = .zero
         
         return descriptionLabel
     }()
@@ -145,13 +145,13 @@ class DetailViewController: UIViewController {
     
     
     
-    private let favoriteButton: UIButton = {
+    private lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton()
-        favoriteButton.setImage(UIImage(named: "favoritesButton"), for: .normal)
+        favoriteButton.setImage(UIImage(named: Constants.AssetIdentifier.bigFavoritesButton.rawValue), for: .normal)
         favoriteButton.imageView?.contentMode = .scaleAspectFill
         
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        //        favoritesButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(detailsFavoriteButtonTapped), for: .touchUpInside)
         return favoriteButton
     }()
     
@@ -164,6 +164,12 @@ class DetailViewController: UIViewController {
         
     }
     
+    @objc private func detailsFavoriteButtonTapped() {
+        favoriteButton.isSelected.toggle()
+        let imageName = favoriteButton.isSelected ? Constants.AssetIdentifier.bigSelectedFavoritesButton : Constants.AssetIdentifier.bigFavoritesButton
+        let image = UIImage(assetIdentifier: imageName)
+        favoriteButton.setImage(image, for: .normal)
+    }
     
     //MARK: - Set up Navigation Bar
     private func setUpNavBar() {
@@ -215,79 +221,79 @@ class DetailViewController: UIViewController {
     
     private func setUpMovieTitleConstraints() {
         NSLayoutConstraint.activate([
-            movieTitle.topAnchor.constraint(equalTo: moviePoster.bottomAnchor, constant: 26),
-            movieTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            movieTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -145),
+            movieTitle.topAnchor.constraint(equalTo: moviePoster.bottomAnchor, constant: MovieTitleSizing.top),
+            movieTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: MovieTitleSizing.leading),
+            movieTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: MovieTitleSizing.trailing),
         ])
     }
     
     private func setUpFavoriteButtonConstraints() {
         NSLayoutConstraint.activate([
             favoriteButton.centerYAnchor.constraint(equalTo: movieTitle.centerYAnchor),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 50),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 50),
-            favoriteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            favoriteButton.widthAnchor.constraint(equalToConstant: FavoriteButtonSizing.width),
+            favoriteButton.heightAnchor.constraint(equalToConstant: FavoriteButtonSizing.height),
+            favoriteButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: FavoriteButtonSizing.trailing),
         ])
     }
     
     private func setUpRatingLabelConstraints() {
         NSLayoutConstraint.activate([
-            ratingLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 12),
-            ratingLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            ratingLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 56),
-            ratingLabel.heightAnchor.constraint(equalToConstant: 26)
+            ratingLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: RatingLabelSizing.top),
+            ratingLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: RatingLabelSizing.leading),
+            ratingLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: RatingLabelSizing.width),
+            ratingLabel.heightAnchor.constraint(equalToConstant: RatingLabelSizing.height)
             
         ])
     }
     
     private func setUpGenreLabelConstraints() {
         NSLayoutConstraint.activate([
-            genreLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 12),
-            genreLabel.leadingAnchor.constraint(equalTo: ratingLabel.trailingAnchor, constant: 8),
-            genreLabel.widthAnchor.constraint(equalToConstant: 89),
-            genreLabel.heightAnchor.constraint(equalToConstant: 26)
+            genreLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: GenreLabelSizing.top),
+            genreLabel.leadingAnchor.constraint(equalTo: ratingLabel.trailingAnchor, constant: GenreLabelSizing.leading),
+            genreLabel.widthAnchor.constraint(equalToConstant: GenreLabelSizing.width),
+            genreLabel.heightAnchor.constraint(equalToConstant: GenreLabelSizing.height)
         ])
     }
     
     private func setUpMovieDurationConstraints() {
         NSLayoutConstraint.activate([
-            movieDuration.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 12),
-            movieDuration.leadingAnchor.constraint(equalTo: genreLabel.trailingAnchor, constant: 8),
-            movieDuration.widthAnchor.constraint(equalToConstant: 91),
-            movieDuration.heightAnchor.constraint(equalToConstant: 26)
+            movieDuration.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: MovieDurationLabelSizing.top),
+            movieDuration.leadingAnchor.constraint(equalTo: genreLabel.trailingAnchor, constant: MovieDurationLabelSizing.leading),
+            movieDuration.widthAnchor.constraint(equalToConstant: MovieDurationLabelSizing.width),
+            movieDuration.heightAnchor.constraint(equalToConstant: MovieDurationLabelSizing.height)
         ])
     }
     
     private func setUpMovieYearConstraints() {
         NSLayoutConstraint.activate([
-            movieYear.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 12),
-            movieYear.leadingAnchor.constraint(equalTo: movieDuration.trailingAnchor, constant: 8),
-            movieYear.widthAnchor.constraint(equalToConstant: 55),
-            movieYear.heightAnchor.constraint(equalToConstant: 26)
+            movieYear.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: MovieYearLabelSizing.top),
+            movieYear.leadingAnchor.constraint(equalTo: movieDuration.trailingAnchor, constant: MovieYearLabelSizing.leading),
+            movieYear.widthAnchor.constraint(equalToConstant: MovieYearLabelSizing.width),
+            movieYear.heightAnchor.constraint(equalToConstant: MovieYearLabelSizing.height)
         ])
     }
     
     private func setUpaboutMovieLabelConstraints() {
         NSLayoutConstraint.activate([
-            aboutMovieLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: 64),
-            aboutMovieLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            aboutMovieLabel.heightAnchor.constraint(equalToConstant: 21)
+            aboutMovieLabel.topAnchor.constraint(equalTo: movieTitle.bottomAnchor, constant: AboutMovieLabelSizing.top),
+            aboutMovieLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: AboutMovieLabelSizing.leading),
+            aboutMovieLabel.heightAnchor.constraint(equalToConstant: AboutMovieLabelSizing.heigth)
         ])
     }
     
     private func setUpDescriptionConstraints() {
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: aboutMovieLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            descriptionLabel.topAnchor.constraint(equalTo: aboutMovieLabel.bottomAnchor, constant: DescriptionLabelSizing.top),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: DescriptionLabelSizing.leading),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: DescriptionLabelSizing.trailing),
         ])
     }
     
     private func setUpTrailerButtonConstraints() {
         NSLayoutConstraint.activate([
-            trailerButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 252),
-            trailerButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            trailerButton.bottomAnchor.constraint(equalTo: moviePoster.bottomAnchor, constant: -20),
+            trailerButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: TrailingButtonSizing.leading),
+            trailerButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: TrailingButtonSizing.trailing),
+            trailerButton.bottomAnchor.constraint(equalTo: moviePoster.bottomAnchor, constant: TrailingButtonSizing.bottom),
            
         ])
     }
