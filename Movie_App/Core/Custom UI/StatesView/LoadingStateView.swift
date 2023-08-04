@@ -32,10 +32,9 @@ class LoadingStateView: UIView {
                                       clockwise: true)
         
         
-        //        circleLayer.fillColor = Constants.Colors.yellow_primary.cgColor
+        circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.strokeColor = Constants.Colors.yellow_primary.cgColor
         circleLayer.lineWidth = 48
-        //        circleLayer.strokeEnd = CGFloat.pi * 4
         circleLayer.path = bezierPath.cgPath
         
         return circleLayer
@@ -43,12 +42,28 @@ class LoadingStateView: UIView {
     
     private lazy var strokeAnimationGroup: CAAnimationGroup = {
         let strokeAnimationGroup = CAAnimationGroup()
-        strokeAnimationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
+        strokeAnimationGroup.animations = [strokeStartAnimation, strokeEndAnimation, colorChangeAnimation]
         strokeAnimationGroup.duration = 3
         strokeAnimationGroup.repeatCount = .infinity
         strokeAnimationGroup.timingFunction = .init(name: .easeInEaseOut)
         return strokeAnimationGroup
     }()
+    
+  
+
+    private lazy var colorChangeAnimation: CABasicAnimation = {
+           let colorChangeAnimation = CABasicAnimation(keyPath: "strokeColor")
+           colorChangeAnimation.fromValue = Constants.Colors.yellow_primary.cgColor
+        let primaryColorWithOpacity = Constants.Colors.yellow_primary.withAlphaComponent(0.6)
+
+           // Set the desired color you want to change to at the end of the animation
+        colorChangeAnimation.toValue = primaryColorWithOpacity.cgColor
+           colorChangeAnimation.duration = 0.5 // Adjust this duration to control the time it takes to change the color
+        colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5 // Start the color change just before the strokeEndAnimation ends
+           colorChangeAnimation.fillMode = .forwards
+           colorChangeAnimation.isRemovedOnCompletion = false
+           return colorChangeAnimation
+       }()
     
     private lazy var strokeStartAnimation: CABasicAnimation = {
         let strokeStartAnimation = CABasicAnimation(keyPath: "strokeStart")
@@ -65,11 +80,12 @@ class LoadingStateView: UIView {
         strokeEndAnimation.fromValue = 0
         strokeEndAnimation.toValue = 1
         strokeEndAnimation.duration = 1.5
-        
+       
         return strokeEndAnimation
     }()
     
     func startSpinning() {
+
         circleLayer.add(strokeAnimationGroup, forKey: nil)
     }
     
