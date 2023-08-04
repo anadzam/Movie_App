@@ -42,25 +42,25 @@ class FavoriteViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         self.navigationItem.title = "Favorite movies"
        
+        //for testin state views
 //        view.addSubview(errorStateView)
 //        view.addSubview(emptyStateView)
-        view.addSubview(loadingStateView)
-        setUpLoadingViewConstraints()
-        //for testing stateViews
+//        view.addSubview(loadingStateView)
+//        setUpLoadingViewConstraints()
 //        setUpErrorViewConstraints()
 //        setUpEmptyViewConstraints()
 //
     
-//       configureFavoriteCollectionView()
-//        setUpConstraints()
+       configureFavoriteCollectionView()
+        setUpConstraints()
 //
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        loadingStateView.startSpinning()
-    }
-////    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        loadingStateView.startSpinning()
+//    }
+
     //MARK: - Set Up Constraints
     private func setUpConstraints() {
         setUpFavoritesCollectionConstraints()

@@ -54,7 +54,7 @@ class LoadingStateView: UIView {
     private lazy var colorChangeAnimation: CABasicAnimation = {
            let colorChangeAnimation = CABasicAnimation(keyPath: "strokeColor")
            colorChangeAnimation.fromValue = Constants.Colors.yellow_primary.cgColor
-        let primaryColorWithOpacity = Constants.Colors.yellow_primary.withAlphaComponent(0.6)
+           let primaryColorWithOpacity = Constants.Colors.yellow_primary.withAlphaComponent(0.6)
 
            // Set the desired color you want to change to at the end of the animation
         colorChangeAnimation.toValue = primaryColorWithOpacity.cgColor
