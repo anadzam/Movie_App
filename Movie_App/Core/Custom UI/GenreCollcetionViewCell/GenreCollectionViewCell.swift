@@ -15,6 +15,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
         let genreButton = UIButton()
         genreButton.translatesAutoresizingMaskIntoConstraints = false
         genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey, for: .normal)
+        
 //        genreButton.textColor = Constants.Colors.neutral_lighter_grey
        
         genreButton.layer.cornerRadius = GenreButtonSizing.cornerRadius

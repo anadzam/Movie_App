@@ -16,6 +16,7 @@ class SearchBar: UIView {
     lazy var containerView = UIView()
     var genreCollectionView: UICollectionView!
     weak var filterButtonDelegate: FilterButtonDelegate?
+    var selectedIndex:IndexPath?
   
     
     var isGenreCollectionViewVisible: Bool = false
@@ -124,7 +125,6 @@ class SearchBar: UIView {
         genreCollectionView.showsVerticalScrollIndicator = false
         genreCollectionView.dataSource = self
         genreCollectionView.delegate = self
-        genreCollectionView.isScrollEnabled = true
         genreCollectionView.isUserInteractionEnabled = true
         
         
@@ -283,34 +283,34 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
         cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
-        cell.genreButton.sizeToFit()
-        cell.layer.masksToBounds = true
+        if indexPath == selectedIndex {
+
+            cell.genreButton.backgroundColor = Constants.Colors.yellow_primary
+            cell.genreButton.layer.borderColor = UIColor.clear.cgColor
+            cell.genreButton.setTitleColor(Constants.Colors.neutral_black , for: .normal)
+
+            }
+            else {
+
+                cell.genreButton.backgroundColor = .clear
+                cell.genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
+                cell.genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey , for: .normal)
+            }
+//        cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
+////        cell.genreButton.text = genres[indexPath.item]
+//        cell.genreButton.sizeToFit()
+//        cell.layer.masksToBounds = true
         
         return cell
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedItem = genres[indexPath.row]
-        if let cell = collectionView.cellForItem(at: indexPath) as? GenreCollectionViewCell {
-            cell.genreButton.isSelected.toggle()
-            updateCellAppearanceOnTap(cell)
-            
-        }
-        print(selectedItem)
+        selectedIndex = indexPath
+           collectionView.reloadData()
+
     }
     
-    private func updateCellAppearanceOnTap(_ cell: GenreCollectionViewCell) {
-        let isSelected = cell.genreButton.isSelected
-        let buttonBackgroundColor = isSelected ? Constants.Colors.yellow_primary : .clear
-        let borderColor = isSelected ? .clear : Constants.Colors.neutral_lighter_grey
-        let titleColor = isSelected ? Constants.Colors.neutral_black : Constants.Colors.neutral_lighter_grey
-        
-        cell.genreButton.layer.borderColor = borderColor.cgColor
-        cell.genreButton.setTitleColor(titleColor, for: .normal)
-        cell.genreButton.backgroundColor = buttonBackgroundColor
-    }
-    
+      
 }
 
 

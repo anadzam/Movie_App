@@ -42,7 +42,7 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
         searchBar.filterButtonDelegate = self
         configureCollectionView()
         setUpConstraints()
-        hideKeyboard()
+//        hideKeyboard()
         
     }
     
@@ -89,7 +89,6 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
         
         view.addSubview(collectionView)
     }
@@ -180,6 +179,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         self.navigationController?.pushViewController(detailVc, animated: true)
         
     }
+    
+
     
 }
 
