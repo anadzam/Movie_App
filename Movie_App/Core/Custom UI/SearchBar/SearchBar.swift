@@ -11,16 +11,25 @@ import UIKit
 protocol FilterButtonDelegate: AnyObject {
     func filterButtonTapped(isSelected: Bool)
 }
+protocol ClearButtonTappedDelegate: AnyObject {
+    func clearbuttonPressed()
+}
+
+protocol SearchBarDidBeginEditingDelegate: AnyObject {
+    func searchBarDidBeginEditing()
+}
+
 class SearchBar: UIView {
     private lazy var searchTextfield = UITextField()
     lazy var containerView = UIView()
     var genreCollectionView: UICollectionView!
     weak var filterButtonDelegate: FilterButtonDelegate?
     var selectedIndex:IndexPath?
+    weak var clearbuttonPressed: ClearButtonTappedDelegate?
+    weak var searchBarDidBeginEditingDelegate: SearchBarDidBeginEditingDelegate?
   
     
     var isGenreCollectionViewVisible: Bool = false
-//    var isClearButtonVisible: Bool = false
     let genres = ["Action", "Comedy", "Drama", "Romance", "Horror", "Crime", "Crime", "Crime", "Crime"]
     
     
@@ -87,6 +96,7 @@ class SearchBar: UIView {
         genreCollectionView.isHidden = !isGenreCollectionViewVisible
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -106,9 +116,14 @@ class SearchBar: UIView {
     }
     
     @objc func clearButtonTapped() {
-        searchTextfield.text = ""
+        searchTextfield.resignFirstResponder()
         clearButton.isHidden = true
+        filterButton.isSelected = false
+        let image = UIImage(assetIdentifier: Constants.AssetIdentifier.filterButton)
+        filterButton.setImage(image, for: .normal)
         filterButton.isHidden = false
+        clearbuttonPressed?.clearbuttonPressed()
+
     }
     
     private func configureGenreCollectionView() {
@@ -126,7 +141,6 @@ class SearchBar: UIView {
         genreCollectionView.dataSource = self
         genreCollectionView.delegate = self
         genreCollectionView.isUserInteractionEnabled = true
-        
         
         addSubview(genreCollectionView)
         
@@ -179,9 +193,7 @@ class SearchBar: UIView {
             containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 65)
-            //            containerView.heightAnchor.constraint(greaterThanOrEqualToConstant: ContainerViewSizing.height)
-            
+            containerView.heightAnchor.constraint(equalToConstant: ContainerViewSizing.height)
         ])
     }
     
@@ -257,14 +269,14 @@ class SearchBar: UIView {
 extension SearchBar: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        genreCollectionView.isHidden = true
         placeHolder.isHidden = true
         filterButton.isHidden = true
         clearButton.isHidden = false
-        
+        searchBarDidBeginEditingDelegate?.searchBarDidBeginEditing()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         if let searchText = searchTextfield.text, searchText.isEmpty {
             placeHolder.isHidden = false
             filterButton.isHidden = false

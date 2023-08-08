@@ -38,7 +38,7 @@ extension SearchBar {
     }
     
     enum ContainerViewSizing {
-        static let height: CGFloat = 36
+        static let height: CGFloat = 65
     }
     
     enum FilterButtonSizing {

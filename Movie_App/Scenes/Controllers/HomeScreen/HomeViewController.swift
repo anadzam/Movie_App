@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, FilterButtonDelegate {
+class HomeViewController: UIViewController {
     
     private var collectionView: UICollectionView!
     private var labelConstraints: [NSLayoutConstraint] = []
@@ -38,30 +38,12 @@ class HomeViewController: UIViewController, FilterButtonDelegate {
         
         view.addSubview(label)
         searchBar.isUserInteractionEnabled = true
-        
+        searchBar.clearbuttonPressed = self
+        searchBar.searchBarDidBeginEditingDelegate = self
         searchBar.filterButtonDelegate = self
         configureCollectionView()
         setUpConstraints()
-//        hideKeyboard()
-        
-    }
-    
-    
-    
-    func filterButtonTapped(isSelected: Bool) {
-
-        
-        if isSelected {
-            NSLayoutConstraint.deactivate(labelConstraints)
-            NSLayoutConstraint.deactivate(collectionViewConstraints)
-            NSLayoutConstraint.activate(scrolledConstraints)
-
-        } else {
-
-            NSLayoutConstraint.deactivate(scrolledConstraints)
-            NSLayoutConstraint.activate(labelConstraints)
-            NSLayoutConstraint.activate(collectionViewConstraints)
-        }
+        hideKeyboard()
         
     }
     
@@ -180,7 +162,34 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-
-    
 }
 
+extension HomeViewController: FilterButtonDelegate {
+    func filterButtonTapped(isSelected: Bool) {
+        if isSelected {
+            NSLayoutConstraint.deactivate(labelConstraints)
+            NSLayoutConstraint.deactivate(collectionViewConstraints)
+            NSLayoutConstraint.activate(scrolledConstraints)
+
+        } else {
+
+            NSLayoutConstraint.deactivate(scrolledConstraints)
+            NSLayoutConstraint.activate(labelConstraints)
+            NSLayoutConstraint.activate(collectionViewConstraints)
+        }
+    }
+}
+
+
+
+extension HomeViewController: ClearButtonTappedDelegate {
+    func clearbuttonPressed() {
+         filterButtonTapped(isSelected: false)
+    }
+}
+
+extension HomeViewController: SearchBarDidBeginEditingDelegate {
+    func searchBarDidBeginEditing() {
+        filterButtonTapped(isSelected: false)
+    }
+}
