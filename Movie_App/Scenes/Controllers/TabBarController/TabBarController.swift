@@ -35,17 +35,10 @@ class TabBarController: UITabBarController {
             let item = items[index]
             let imageName = tabBaritem[index].rawValue
             let selectedImageName = selectedTabBarItem[index].rawValue
-            
-        
-
             item.image = UIImage(named: imageName)
             
             //need to fix
             item.landscapeImagePhone = UIImage(named: imageName)
-            
-        
-            
-          
             item.selectedImage = UIImage(named: selectedImageName)
         }
         

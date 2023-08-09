@@ -7,6 +7,7 @@
 
 import Foundation
 extension DetailViewController {
+
     
     enum MovieTitleSizing {
         static let fontSize: CGFloat = 20

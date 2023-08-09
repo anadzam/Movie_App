@@ -11,22 +11,10 @@ import UIKit
 
 class LoadingStateView: UIView {
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layer.addSublayer(circleLayer)
-        
-        
-    }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
     private lazy var circleLayer: CAShapeLayer = {
         let circleLayer = CAShapeLayer()
         let bezierPath = UIBezierPath(arcCenter: CGPoint.zero,
-                                      radius: 24,
+                                      radius: CircleLayerSizing.radius,
                                       startAngle: -(CGFloat.pi / 2),
                                       endAngle: -(CGFloat.pi / 2) + (2 * CGFloat.pi),
                                       clockwise: true)
@@ -34,7 +22,7 @@ class LoadingStateView: UIView {
         
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.strokeColor = Constants.Colors.yellow_primary.cgColor
-        circleLayer.lineWidth = 48
+        circleLayer.lineWidth = CircleLayerSizing.lineWidth
         circleLayer.path = bezierPath.cgPath
         
         return circleLayer
@@ -59,7 +47,7 @@ class LoadingStateView: UIView {
           
         colorChangeAnimation.toValue = primaryColorWithOpacity.cgColor
            colorChangeAnimation.duration = 0.5
-        colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5 
+        colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5
            colorChangeAnimation.fillMode = .forwards
            colorChangeAnimation.isRemovedOnCompletion = false
            return colorChangeAnimation
@@ -84,9 +72,27 @@ class LoadingStateView: UIView {
         return strokeEndAnimation
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layer.addSublayer(circleLayer)
+        
+        
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func startSpinning() {
 
         circleLayer.add(strokeAnimationGroup, forKey: nil)
     }
     
+}
+
+
+extension LoadingStateView {
+    enum CircleLayerSizing {
+        static let radius: CGFloat = 24
+        static let lineWidth: CGFloat = 48
+    }
 }

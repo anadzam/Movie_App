@@ -30,9 +30,10 @@ class HomeViewModel {
         MovieModel(imageView: "movieImage",
                    genreLabel: "Comedy",
                    moviewTitle: "The Boss Baby",
-                   movieYearLabel: "2017"),MovieModel(imageView: "movieImage",
-                                                      genreLabel: "Comedy",
-                                                      moviewTitle: "The Boss Baby",
-                                                      movieYearLabel: "2017")
+                   movieYearLabel: "2017"),
+        MovieModel(imageView: "movieImage",
+                   genreLabel: "Comedy",
+                   moviewTitle: "The Boss Baby",
+                   movieYearLabel: "2017")
     ]
 }

@@ -18,7 +18,7 @@ class FavoriteViewController: UIViewController {
     
     private func configureFavoriteCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 164, height: 269)
+        layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
         layout.scrollDirection = .vertical
         
         
@@ -40,20 +40,19 @@ class FavoriteViewController: UIViewController {
         view.backgroundColor = Constants.Colors.neutral_black
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = "Favorite movies"
+        self.navigationItem.title = FavoriteViewStrings.navigationItemTitle
         
         //for testin state views
-        //        view.addSubview(errorStateView)
-        //        view.addSubview(emptyStateView)
+        //                view.addSubview(errorStateView)
+        //                view.addSubview(emptyStateView)
         //        view.addSubview(loadingStateView)
         //        setUpLoadingViewConstraints()
-        //        setUpErrorViewConstraints()
-        //        setUpEmptyViewConstraints()
+        //                setUpErrorViewConstraints()
+        //                setUpEmptyViewConstraints()
         //
         
         configureFavoriteCollectionView()
         setUpConstraints()
-        //
         
     }
     //    override func viewDidAppear(_ animated: Bool) {
@@ -100,9 +99,9 @@ class FavoriteViewController: UIViewController {
         favoriteCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             favoriteCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            favoriteCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            favoriteCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            favoriteCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: CollectionViewSizing.leading),
+            favoriteCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: CollectionViewSizing.trailing),
+            favoriteCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: CollectionViewSizing.bottom)
         ])
     }
     
@@ -112,16 +111,28 @@ class FavoriteViewController: UIViewController {
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.movieModel.count
-        //
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
         cell.layer.masksToBounds = true
         cell.configure(with: viewModel.movieModel[indexPath.row])
         return cell
     }
-    
-    
+}
+
+
+extension FavoriteViewController {
+    enum FavoriteViewStrings {
+        static let navigationItemTitle: String = "Favorite movies"
+    }
+    enum CollectionViewSizing {
+        static let itemWidth: CGFloat = 164
+        static let itemHeight: CGFloat = 269
+        
+        static let leading: CGFloat = 16
+        static let trailing: CGFloat = -16
+        static let bottom: CGFloat = -16
+        
+    }
 }

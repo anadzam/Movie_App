@@ -30,7 +30,7 @@ class SearchBar: UIView {
     weak var searchBarDidBeginEditingDelegate: SearchBarDidBeginEditingDelegate?
     var isGenreCollectionViewVisible: Bool = false
     
-    let genres = ["Action", "Comedy", "Drama", "Romance", "Horror", "Crime", "Crime", "Crime", "Crime"]
+    let genres = ["filmsNowShowing", "filmsComingSoon"]
     
     
     
@@ -132,7 +132,7 @@ class SearchBar: UIView {
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: CollectionViewSizing.widthPadding,
                                  height: CollectionViewSizing.heightPadding)
-        
+      
         
         genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         genreCollectionView.backgroundColor = .clear
@@ -143,6 +143,7 @@ class SearchBar: UIView {
         genreCollectionView.dataSource = self
         genreCollectionView.delegate = self
         genreCollectionView.isUserInteractionEnabled = true
+        
         
         addSubview(genreCollectionView)
         
@@ -158,6 +159,8 @@ class SearchBar: UIView {
         searchTextfield.leftViewMode = .always
         
     }
+    
+   
     private func setUpSearchBar() {
         searchTextfield.layer.cornerRadius = SearchBarSizing.cornerRadius
         searchTextfield.textColor = Constants.Colors.neutral_light_grey
@@ -288,6 +291,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
         cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
+
         if indexPath == selectedIndex {
             
             cell.genreButton.backgroundColor = Constants.Colors.yellow_primary
@@ -301,6 +305,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
             cell.genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey , for: .normal)
         }
+//
         return cell
     }
     
@@ -313,7 +318,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
         collectionView.reloadData()
         
     }
-    
+
 }
 
 

@@ -19,7 +19,7 @@ extension SearchBar {
     }
     enum SearchBarAttribute {
         static let placeholder: String = "Search"
-        static let cancelButtonTitle: String = "cancel"
+        static let cancelButtonTitle: String = "Cancel"
     }
     enum SearchBarFonts {
         static let clearButtonFontSize: CGFloat = 10
@@ -53,7 +53,7 @@ extension SearchBar {
     }
     
     enum CollectionViewSizing {
-        static let widthPadding: CGFloat = 50
+        static let widthPadding: CGFloat = 106
         static let heightPadding: CGFloat = 21
         static let height: CGFloat = 21
         static let leading: CGFloat = 4

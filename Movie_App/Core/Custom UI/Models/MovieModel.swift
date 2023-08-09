@@ -14,5 +14,4 @@ struct MovieModel {
     var genreLabel: String
     var moviewTitle: String
     var movieYearLabel: String
-    
 }

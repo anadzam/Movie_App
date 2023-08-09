@@ -27,6 +27,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
         genreButton.backgroundColor = .clear
         genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
         genreButton.isUserInteractionEnabled = false
+       
 //        genreButton.addTarget(self, action: #selector(genreButtonPressed), for: .touchUpInside)
 //        genreButton.isSelected = false
         return genreButton
@@ -36,6 +37,7 @@ class GenreCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         contentView.addSubview(genreButton)
         self.clipsToBounds = true
+//        self.sizeToFit()
         self.layer.cornerRadius = GenreButtonSizing.cornerRadius
         
        
