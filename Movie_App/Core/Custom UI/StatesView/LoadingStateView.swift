@@ -56,10 +56,10 @@ class LoadingStateView: UIView {
            colorChangeAnimation.fromValue = Constants.Colors.yellow_primary.cgColor
            let primaryColorWithOpacity = Constants.Colors.yellow_primary.withAlphaComponent(0.6)
 
-           // Set the desired color you want to change to at the end of the animation
+          
         colorChangeAnimation.toValue = primaryColorWithOpacity.cgColor
-           colorChangeAnimation.duration = 0.5 // Adjust this duration to control the time it takes to change the color
-        colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5 // Start the color change just before the strokeEndAnimation ends
+           colorChangeAnimation.duration = 0.5
+        colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5 
            colorChangeAnimation.fillMode = .forwards
            colorChangeAnimation.isRemovedOnCompletion = false
            return colorChangeAnimation
