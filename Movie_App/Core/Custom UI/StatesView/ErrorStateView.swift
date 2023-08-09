@@ -21,7 +21,7 @@ class ErrorStateView: UIView {
         let errorLabel = UILabel()
         errorLabel.text = "Data can’t be loaded"
         errorLabel.textColor = Constants.Colors.Neutral_Whisper
-        errorLabel.font = .boldSystemFont(ofSize: 18)
+        errorLabel.font = .boldSystemFont(ofSize: ErrorLabelSizing.font)
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = .zero
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -29,24 +29,24 @@ class ErrorStateView: UIView {
     }()
     
     private let errorDetailLabel: UILabel = {
-        let errorLabel = UILabel()
-        errorLabel.text = """
+        let errorDetailLabel = UILabel()
+        errorDetailLabel.text = """
  internet connection or some
 other server error
 """
-        errorLabel.textColor = Constants.Colors.Neutral_Whisper
-        errorLabel.font = .systemFont(ofSize: 16)
-        errorLabel.textAlignment = .center
-        errorLabel.numberOfLines = 2
-        errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        return errorLabel
+        errorDetailLabel.textColor = Constants.Colors.Neutral_Whisper
+        errorDetailLabel.font = .systemFont(ofSize: ErrorDetailLabelSizing.font)
+        errorDetailLabel.textAlignment = .center
+        errorDetailLabel.numberOfLines = 2
+        errorDetailLabel.translatesAutoresizingMaskIntoConstraints = false
+        return errorDetailLabel
     }()
     
     private let refreshButton: UIButton = {
         let refreshButton = UIButton()
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
         refreshButton.layer.masksToBounds = true
-        refreshButton.layer.cornerRadius = 16
+        refreshButton.layer.cornerRadius = RefreshButtonSizing.radius
         refreshButton.setImage(UIImage(assetIdentifier: Constants.AssetIdentifier.refreshButton), for: .normal)
         
         return refreshButton
@@ -77,28 +77,27 @@ other server error
     
     private func setUpIconConstraints() {
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 229),
-           
-            icon.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 160),
-            icon.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -150),
+            icon.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: IconSizing.top),
+            icon.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: IconSizing.leading),
+            icon.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: IconSizing.trailing),
         ])
         
     }
     
     private func setUpErrorLabelConstraints() {
         NSLayoutConstraint.activate([
-            errorLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 28),
-            errorLabel.widthAnchor.constraint(equalToConstant: 196),
-            errorLabel.heightAnchor.constraint(equalToConstant: 18),
+            errorLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: ErrorLabelSizing.top),
+            errorLabel.widthAnchor.constraint(equalToConstant: ErrorLabelSizing.width),
+            errorLabel.heightAnchor.constraint(equalToConstant: ErrorLabelSizing.height),
             errorLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor)
         ])
         
     }
     private func setUpErrorDetailLabelConstraints() {
         NSLayoutConstraint.activate([
-            errorDetailLabel.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 23),
-            errorDetailLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -64),
-            errorDetailLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 64),
+            errorDetailLabel.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: ErrorDetailLabelSizing.top),
+            errorDetailLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: ErrorDetailLabelSizing.trailing),
+            errorDetailLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: ErrorDetailLabelSizing.leading),
             errorDetailLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor)
         ])
         
@@ -106,11 +105,38 @@ other server error
     
     private func setUpRefreshButtonConstraints() {
         NSLayoutConstraint.activate([
-            refreshButton.topAnchor.constraint(equalTo: errorDetailLabel.bottomAnchor, constant: 110),
-            refreshButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -120),
-            refreshButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 120)
+            refreshButton.topAnchor.constraint(equalTo: errorDetailLabel.bottomAnchor, constant: RefreshButtonSizing.top),
+            refreshButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: RefreshButtonSizing.trailing),
+            refreshButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: RefreshButtonSizing.leading)
         ])
     }
 
+    
+}
+
+ extension ErrorStateView {
+    enum RefreshButtonSizing {
+        static let radius: CGFloat = 16
+        static let top: CGFloat = 110
+        static let trailing: CGFloat = -120
+        static let leading: CGFloat = 120
+    }
+    enum IconSizing {
+        static let top: CGFloat = 229
+        static let trailing: CGFloat = -150
+        static let leading: CGFloat = 160
+    }
+    enum ErrorDetailLabelSizing {
+        static let font: CGFloat = 16
+        static let top: CGFloat = 23
+        static let trailing: CGFloat = -64
+        static let leading: CGFloat = 64
+    }
+    enum ErrorLabelSizing {
+        static let font: CGFloat = 18
+        static let top: CGFloat = 28
+        static let width: CGFloat = 196
+        static let height: CGFloat = 18
+    }
     
 }

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//MARK: - Delegates
 protocol FilterButtonDelegate: AnyObject {
     func filterButtonTapped(isSelected: Bool)
 }
@@ -27,14 +28,13 @@ class SearchBar: UIView {
     var selectedIndex:IndexPath?
     weak var clearbuttonPressed: ClearButtonTappedDelegate?
     weak var searchBarDidBeginEditingDelegate: SearchBarDidBeginEditingDelegate?
-  
-    
     var isGenreCollectionViewVisible: Bool = false
+    
     let genres = ["Action", "Comedy", "Drama", "Romance", "Horror", "Crime", "Crime", "Crime", "Crime"]
     
     
     
-    //MARK: - components
+    //MARK: - Components
     private let placeHolder: UILabel = {
         let placeholder = UILabel()
         placeholder.text = SearchBarAttribute.placeholder
@@ -67,7 +67,7 @@ class SearchBar: UIView {
         
         clearButton.setTitle(SearchBarAttribute.cancelButtonTitle, for: .normal)
         clearButton.clipsToBounds = true
-       
+        
         clearButton.titleLabel?.numberOfLines = .zero
         clearButton.titleLabel?.font = .systemFont(ofSize: SearchBarFonts.clearButtonFontSize)
         clearButton.titleLabel?.textColor = Constants.Colors.Neutral_Whisper
@@ -115,6 +115,7 @@ class SearchBar: UIView {
         
     }
     
+    //MARK: - clear Button Tapped
     @objc func clearButtonTapped() {
         searchTextfield.resignFirstResponder()
         clearButton.isHidden = true
@@ -123,13 +124,14 @@ class SearchBar: UIView {
         filterButton.setImage(image, for: .normal)
         filterButton.isHidden = false
         clearbuttonPressed?.clearbuttonPressed()
-
+        
     }
     
     private func configureGenreCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: CollectionViewSizing.widthPadding, height: CollectionViewSizing.heightPadding)
+        layout.itemSize = CGSize(width: CollectionViewSizing.widthPadding,
+                                 height: CollectionViewSizing.heightPadding)
         
         
         genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -203,19 +205,17 @@ class SearchBar: UIView {
             searchTextfield.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.leading),
             searchTextfield.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -SearchBarSizing.trailing),
             searchTextfield.heightAnchor.constraint(equalToConstant: SearchBarSizing.height)
-            
-            
         ])
     }
+    
     private func setUpClearButtonConstraints() {
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        
+            
             clearButton.centerYAnchor.constraint(equalTo: searchTextfield.centerYAnchor),
             clearButton.heightAnchor.constraint(equalToConstant: ClearButtonSizing.heigth),
             clearButton.widthAnchor.constraint(equalToConstant: ClearButtonSizing.width),
             clearButton.leadingAnchor.constraint(equalTo: searchTextfield.trailingAnchor, constant: ClearButtonSizing.leading)
-            
         ])
     }
     
@@ -226,8 +226,6 @@ class SearchBar: UIView {
             filterButton.leadingAnchor.constraint(equalTo: searchTextfield.trailingAnchor, constant: FilterButtonSizing.leading),
             filterButton.heightAnchor.constraint(equalToConstant: FilterButtonSizing.height),
             filterButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
-            
-            
         ])
     }
     
@@ -238,11 +236,9 @@ class SearchBar: UIView {
             genreCollectionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: CollectionViewSizing.trailing),
             genreCollectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             genreCollectionView.heightAnchor.constraint(equalToConstant: CollectionViewSizing.height)
-            
-            
-            
         ])
     }
+    
     private func setUpSearchIconConstraints() {
         NSLayoutConstraint.activate([
             searchIcon.centerYAnchor.constraint(equalTo: searchTextfield.centerYAnchor),
@@ -250,7 +246,6 @@ class SearchBar: UIView {
             searchIcon.trailingAnchor.constraint(equalTo: placeHolder.leadingAnchor, constant: SearchIconSizing.trailing),
             searchIcon.widthAnchor.constraint(equalToConstant: SearchIconSizing.width),
             searchIcon.heightAnchor.constraint(equalToConstant: SearchIconSizing.height)
-            
         ])
     }
     
@@ -260,8 +255,6 @@ class SearchBar: UIView {
             placeHolder.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: SearchBarSizing.placeholderLeading)
         ])
     }
-    
-    
 }
 
 
@@ -296,33 +289,31 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
         cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
         if indexPath == selectedIndex {
-
+            
             cell.genreButton.backgroundColor = Constants.Colors.yellow_primary
             cell.genreButton.layer.borderColor = UIColor.clear.cgColor
             cell.genreButton.setTitleColor(Constants.Colors.neutral_black , for: .normal)
-
-            }
-            else {
-
-                cell.genreButton.backgroundColor = .clear
-                cell.genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
-                cell.genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey , for: .normal)
-            }
-//        cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
-////        cell.genreButton.text = genres[indexPath.item]
-//        cell.genreButton.sizeToFit()
-//        cell.layer.masksToBounds = true
-        
+            
+        }
+        else {
+            
+            cell.genreButton.backgroundColor = .clear
+            cell.genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
+            cell.genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey , for: .normal)
+        }
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedIndex = indexPath
-           collectionView.reloadData()
-
+        if selectedIndex == indexPath {
+            selectedIndex = nil
+        } else {
+            selectedIndex = indexPath
+        }
+        collectionView.reloadData()
+        
     }
     
-      
 }
 
 
