@@ -9,6 +9,7 @@ import UIKit
 
 class ErrorStateView: UIView {
     
+    //MARK: - Components
     private let icon: UIImageView = {
         let icon = UIImageView()
         icon.image = UIImage(assetIdentifier: Constants.AssetIdentifier.errorIcon)
@@ -19,9 +20,10 @@ class ErrorStateView: UIView {
     
     private let errorLabel: UILabel = {
         let errorLabel = UILabel()
-        errorLabel.text = "Data can’t be loaded"
+        errorLabel.text = ErrorViewStrings.errorLabel
         errorLabel.textColor = Constants.Colors.Neutral_Whisper
-        errorLabel.font = .boldSystemFont(ofSize: ErrorLabelSizing.font)
+        errorLabel.font = UIFont.customFont(.bold, size: ErrorLabelSizing.font)
+        
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = .zero
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -30,12 +32,9 @@ class ErrorStateView: UIView {
     
     private let errorDetailLabel: UILabel = {
         let errorDetailLabel = UILabel()
-        errorDetailLabel.text = """
- internet connection or some
-other server error
-"""
+        errorDetailLabel.text = ErrorViewStrings.errorDetailLabel
         errorDetailLabel.textColor = Constants.Colors.Neutral_Whisper
-        errorDetailLabel.font = .systemFont(ofSize: ErrorDetailLabelSizing.font)
+        errorDetailLabel.font = UIFont.customFont(.medium, size: ErrorDetailLabelSizing.font)
         errorDetailLabel.textAlignment = .center
         errorDetailLabel.numberOfLines = 2
         errorDetailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -52,21 +51,27 @@ other server error
         return refreshButton
     }()
     
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(icon)
-        addSubview(errorLabel)
-        addSubview(errorDetailLabel)
-        addSubview(refreshButton)
+        addAllSubviews()
         setUpConstaint()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Add subviews
+    
+    private func addAllSubviews() {
+        addSubview(icon)
+        addSubview(errorLabel)
+        addSubview(errorDetailLabel)
+        addSubview(refreshButton)
+    }
+    
+    //MARK: - Set Up Contsraints
     private func setUpConstaint() {
         setUpIconConstraints()
         setUpErrorLabelConstraints()
@@ -74,47 +79,54 @@ other server error
         setUpRefreshButtonConstraints()
     }
     
-    
     private func setUpIconConstraints() {
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: IconSizing.top),
-            icon.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: IconSizing.leading),
-            icon.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: IconSizing.trailing),
+            icon.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor,
+                                      constant: IconSizing.top),
+            icon.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
+                                          constant: IconSizing.leading),
+            icon.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
+                                           constant: IconSizing.trailing),
         ])
-        
     }
     
     private func setUpErrorLabelConstraints() {
         NSLayoutConstraint.activate([
-            errorLabel.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: ErrorLabelSizing.top),
+            errorLabel.topAnchor.constraint(equalTo: icon.bottomAnchor,
+                                            constant: ErrorLabelSizing.top),
             errorLabel.widthAnchor.constraint(equalToConstant: ErrorLabelSizing.width),
             errorLabel.heightAnchor.constraint(equalToConstant: ErrorLabelSizing.height),
             errorLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor)
         ])
-        
     }
+    
     private func setUpErrorDetailLabelConstraints() {
         NSLayoutConstraint.activate([
-            errorDetailLabel.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: ErrorDetailLabelSizing.top),
-            errorDetailLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: ErrorDetailLabelSizing.trailing),
-            errorDetailLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: ErrorDetailLabelSizing.leading),
+            errorDetailLabel.topAnchor.constraint(equalTo: errorLabel.bottomAnchor,
+                                                  constant: ErrorDetailLabelSizing.top),
+            errorDetailLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
+                                                       constant: ErrorDetailLabelSizing.trailing),
+            errorDetailLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
+                                                      constant: ErrorDetailLabelSizing.leading),
             errorDetailLabel.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor)
         ])
-        
     }
     
     private func setUpRefreshButtonConstraints() {
         NSLayoutConstraint.activate([
-            refreshButton.topAnchor.constraint(equalTo: errorDetailLabel.bottomAnchor, constant: RefreshButtonSizing.top),
-            refreshButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: RefreshButtonSizing.trailing),
-            refreshButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: RefreshButtonSizing.leading)
+            refreshButton.topAnchor.constraint(equalTo: errorDetailLabel.bottomAnchor,
+                                               constant: RefreshButtonSizing.top),
+            refreshButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor,
+                                                    constant: RefreshButtonSizing.trailing),
+            refreshButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor,
+                                                   constant: RefreshButtonSizing.leading)
         ])
     }
-
-    
 }
 
- extension ErrorStateView {
+//MARK: - ErrorStateView Extensions
+
+extension ErrorStateView {
     enum RefreshButtonSizing {
         static let radius: CGFloat = 16
         static let top: CGFloat = 110
@@ -137,6 +149,13 @@ other server error
         static let top: CGFloat = 28
         static let width: CGFloat = 196
         static let height: CGFloat = 18
+    }
+    enum ErrorViewStrings {
+        static let errorLabel: String = "Data can’t be loaded"
+        static let errorDetailLabel: String = """
+                                    internet connection or some
+                                    other server error
+                                """
     }
     
 }

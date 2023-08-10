@@ -8,57 +8,43 @@
 import UIKit
 
 class FavoriteViewController: UIViewController {
-    private var favoriteCollectionView: UICollectionView!
+    
     private let viewModel = FavoiteModel()
     let errorStateView = ErrorStateView()
     let emptyStateView = EmptyStateView()
     let loadingStateView = LoadingStateView()
     
-    
-    
-    private func configureFavoriteCollectionView() {
+    private lazy var favoriteCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
         layout.scrollDirection = .vertical
         
-        
-        favoriteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let favoriteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         favoriteCollectionView.backgroundColor = .clear
         favoriteCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
-        
         favoriteCollectionView.dataSource = self
         favoriteCollectionView.delegate = self
         
         view.addSubview(favoriteCollectionView)
-        
-        
-    }
+        return favoriteCollectionView
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.Colors.neutral_black
-        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        self.navigationItem.title = FavoriteViewStrings.navigationItemTitle
-        
-        //for testin state views
-        //                view.addSubview(errorStateView)
-        //                view.addSubview(emptyStateView)
-        //        view.addSubview(loadingStateView)
-        //        setUpLoadingViewConstraints()
-        //                setUpErrorViewConstraints()
-        //                setUpEmptyViewConstraints()
-        //
-        
-        configureFavoriteCollectionView()
+        setUpNavigationItem()
         setUpConstraints()
         
     }
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        loadingStateView.startSpinning()
-    //    }
+    
+    //MARK: - Navvigation Item
+    private func setUpNavigationItem() {
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.font: UIFont.customFont(.semiBold, size: CollectionViewSizing.navItemTitleFont)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        self.navigationItem.title = FavoriteViewStrings.navigationItemTitle
+    }
     
     //MARK: - Set Up Constraints
     private func setUpConstraints() {
@@ -133,6 +119,8 @@ extension FavoriteViewController {
         static let leading: CGFloat = 16
         static let trailing: CGFloat = -16
         static let bottom: CGFloat = -16
+        
+        static let navItemTitleFont: CGFloat = 16
         
     }
 }

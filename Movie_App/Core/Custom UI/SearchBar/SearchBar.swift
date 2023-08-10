@@ -21,24 +21,35 @@ protocol SearchBarDidBeginEditingDelegate: AnyObject {
 }
 
 class SearchBar: UIView {
-    private lazy var searchTextfield = UITextField()
-    lazy var containerView = UIView()
-    var genreCollectionView: UICollectionView!
+    private lazy var containerView = UIView()
+    private var genreCollectionView: UICollectionView!
     weak var filterButtonDelegate: FilterButtonDelegate?
-    var selectedIndex:IndexPath?
+    private var selectedIndex:IndexPath?
     weak var clearbuttonPressed: ClearButtonTappedDelegate?
     weak var searchBarDidBeginEditingDelegate: SearchBarDidBeginEditingDelegate?
-    var isGenreCollectionViewVisible: Bool = false
+    private var isGenreCollectionViewVisible: Bool = false
     
-    let genres = ["filmsNowShowing", "filmsComingSoon"]
+    private let genres = ["filmsNowShowing", "filmsComingSoon"]
     
-    
+   
+    private lazy var searchTextfield: UITextField = {
+        let searchTextfield = UITextField()
+        searchTextfield.layer.cornerRadius = SearchBarSizing.cornerRadius
+        searchTextfield.textColor = Constants.Colors.neutral_light_grey
+        searchTextfield.backgroundColor = .clear
+        searchTextfield.backgroundColor = Constants.Colors.neutral_darkest_grey
+        searchTextfield.translatesAutoresizingMaskIntoConstraints = false
+        searchTextfield.autocorrectionType = .no
+        searchTextfield.clipsToBounds = true
+        searchTextfield.delegate = self
+        return searchTextfield
+    }()
     
     //MARK: - Components
     private let placeHolder: UILabel = {
         let placeholder = UILabel()
         placeholder.text = SearchBarAttribute.placeholder
-        placeholder.font = .systemFont(ofSize: SearchBarFonts.placeholderFontSize)
+        placeholder.font = UIFont.customFont(.regular, size: SearchBarFonts.placeholderFontSize)
         placeholder.sizeToFit()
         placeholder.textColor = Constants.Colors.neutral_light_grey
         placeholder.translatesAutoresizingMaskIntoConstraints = false
@@ -69,29 +80,18 @@ class SearchBar: UIView {
         clearButton.clipsToBounds = true
         
         clearButton.titleLabel?.numberOfLines = .zero
-        clearButton.titleLabel?.font = .systemFont(ofSize: SearchBarFonts.clearButtonFontSize)
+        clearButton.titleLabel?.font = UIFont.customFont(.medium, size: SearchBarFonts.clearButtonFontSize)
         clearButton.titleLabel?.textColor = Constants.Colors.Neutral_Whisper
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         
         return clearButton
     }()
     
-    
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        addSubview(containerView)
-        containerView.addSubview(searchTextfield)
-        containerView.addSubview(filterButton)
-        searchTextfield.addSubview(searchIcon)
-        searchTextfield.addSubview(placeHolder)
-        containerView.addSubview(clearButton)
-        setUpContainerView()
-        setUpSearchBar()
-        configureGenreCollectionView()
-        setUpConstraints()
-        addPadding()
+        addAllSubviews()
+        setUp()
         clearButton.isHidden = true
         genreCollectionView.isHidden = !isGenreCollectionViewVisible
     }
@@ -101,12 +101,28 @@ class SearchBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - AddSubviews
+    private func addAllSubviews() {
+        addSubview(containerView)
+        containerView.addSubview(searchTextfield)
+        containerView.addSubview(filterButton)
+        searchTextfield.addSubview(searchIcon)
+        searchTextfield.addSubview(placeHolder)
+        containerView.addSubview(clearButton)
+    }
+    
+    private func setUp() {
+        setUpContainerView()
+        configureGenreCollectionView()
+        setUpConstraints()
+        addPadding()
+    }
+    
     //MARK: - Filter button tapped
     @objc private func filterButtonTapped() {
         filterButton.isSelected.toggle()
         isGenreCollectionViewVisible = filterButton.isSelected
         genreCollectionView.isHidden = !isGenreCollectionViewVisible
-        
         let imageName = filterButton.isSelected ? Constants.AssetIdentifier.selectedFilter : Constants.AssetIdentifier.filterButton
         let image = UIImage(assetIdentifier: imageName)
         filterButton.setImage(image, for: .normal)
@@ -114,10 +130,13 @@ class SearchBar: UIView {
         filterButtonDelegate?.filterButtonTapped(isSelected: filterButton.isSelected)
         
     }
+   
     
     //MARK: - clear Button Tapped
     @objc func clearButtonTapped() {
-        searchTextfield.resignFirstResponder()
+        searchTextfield.text = ""
+        placeHolder.isHidden = false
+//         searchTextfield.resignFirstResponder()
         clearButton.isHidden = true
         filterButton.isSelected = false
         let image = UIImage(assetIdentifier: Constants.AssetIdentifier.filterButton)
@@ -127,12 +146,13 @@ class SearchBar: UIView {
         
     }
     
+    //MARK: - GenreCollectionView Configuration
     private func configureGenreCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: CollectionViewSizing.widthPadding,
                                  height: CollectionViewSizing.heightPadding)
-      
+        
         
         genreCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         genreCollectionView.backgroundColor = .clear
@@ -160,18 +180,8 @@ class SearchBar: UIView {
         
     }
     
+    
    
-    private func setUpSearchBar() {
-        searchTextfield.layer.cornerRadius = SearchBarSizing.cornerRadius
-        searchTextfield.textColor = Constants.Colors.neutral_light_grey
-        searchTextfield.backgroundColor = .clear
-        searchTextfield.backgroundColor = Constants.Colors.neutral_darkest_grey
-        searchTextfield.translatesAutoresizingMaskIntoConstraints = false
-        searchTextfield.autocorrectionType = .no
-        searchTextfield.clipsToBounds = true
-        searchTextfield.delegate = self
-        
-    }
     
     private func setUpContainerView() {
         containerView.layer.cornerRadius = SearchBarSizing.cornerRadius
@@ -277,6 +287,11 @@ extension SearchBar: UITextFieldDelegate {
             placeHolder.isHidden = false
             filterButton.isHidden = false
             clearButton.isHidden = true
+            filterButton.isSelected = false
+            
+            let image = UIImage(assetIdentifier: Constants.AssetIdentifier.filterButton)
+            filterButton.setImage(image, for: .normal)
+            
         }
     }
     
@@ -291,7 +306,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCollectionViewCell.identifier, for: indexPath) as! GenreCollectionViewCell
         cell.genreButton.setTitle(genres[indexPath.item], for: .normal)
-
+        
         if indexPath == selectedIndex {
             
             cell.genreButton.backgroundColor = Constants.Colors.yellow_primary
@@ -305,7 +320,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.genreButton.layer.borderColor = Constants.Colors.neutral_lighter_grey.cgColor
             cell.genreButton.setTitleColor(Constants.Colors.neutral_lighter_grey , for: .normal)
         }
-//
+        //
         return cell
     }
     
@@ -318,7 +333,7 @@ extension SearchBar: UICollectionViewDelegate, UICollectionViewDataSource {
         collectionView.reloadData()
         
     }
-
+    
 }
 
 

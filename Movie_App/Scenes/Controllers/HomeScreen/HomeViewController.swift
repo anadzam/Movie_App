@@ -9,24 +9,20 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private var collectionView: UICollectionView!
     private var labelConstraints: [NSLayoutConstraint] = []
     private var collectionViewConstraints: [NSLayoutConstraint] = []
     private var scrolledConstraints: [NSLayoutConstraint] = []
-    let offsetToScroll: CGFloat = Sizing.scrollSpacing
+    private let offsetToScroll: CGFloat = Sizing.scrollSpacing
     private let viewModel = HomeViewModel()
-    
-    
-    
-    let searchBar = SearchBar()
+    private let searchBar = SearchBar()
     
     
     private let label: UILabel = {
         let label = UILabel()
         label.text = Texts.label
         label.textColor = Constants.Colors.yellow_primary
-        label.font = .boldSystemFont(ofSize: labelSizing.fontSize)
-        
+        label.font = UIFont.customFont(.semiBold, size: FontSize.label)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
     }()
@@ -41,7 +37,6 @@ class HomeViewController: UIViewController {
         searchBar.clearbuttonPressed = self
         searchBar.searchBarDidBeginEditingDelegate = self
         searchBar.filterButtonDelegate = self
-        configureCollectionView()
         setUpConstraints()
         hideKeyboard()
         
@@ -53,6 +48,7 @@ class HomeViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
     }
     
     @objc func dismissKeyboard() {
@@ -60,21 +56,22 @@ class HomeViewController: UIViewController {
     }
     
     //    MARK: - ConfigureCollectionView
-    private func configureCollectionView() {
+    
+    private lazy var collectionView: UICollectionView = {
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: CollectionViewSizing.itemWidth, height: CollectionViewSizing.itemHeight)
         
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         view.addSubview(collectionView)
-    }
-    
+        return collectionView
+    }()
     
     
     //MARK: - Set up constraints
@@ -86,7 +83,6 @@ class HomeViewController: UIViewController {
     }
     
     private func setUpLabelConstraints() {
-        label.translatesAutoresizingMaskIntoConstraints = false
         labelConstraints = [
             label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: labelSizing.top),
             label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: labelSizing.leading),
@@ -115,7 +111,7 @@ class HomeViewController: UIViewController {
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: SearchBarSizing.top),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: SearchBarSizing.leading),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: SearchBarSizing.trailing),
-
+            
             
         ])
     }
@@ -147,11 +143,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-        //        cell.layer.cornerRadius = CollectionViewSizing.cellCornerRadius
         cell.layer.masksToBounds = true
-        
         cell.configure(with: viewModel.movieModel[indexPath.row])
-
+        
         return cell
     }
     
@@ -170,9 +164,9 @@ extension HomeViewController: FilterButtonDelegate {
             NSLayoutConstraint.deactivate(labelConstraints)
             NSLayoutConstraint.deactivate(collectionViewConstraints)
             NSLayoutConstraint.activate(scrolledConstraints)
-
+            
         } else {
-
+            
             NSLayoutConstraint.deactivate(scrolledConstraints)
             NSLayoutConstraint.activate(labelConstraints)
             NSLayoutConstraint.activate(collectionViewConstraints)
@@ -180,11 +174,9 @@ extension HomeViewController: FilterButtonDelegate {
     }
 }
 
-
-
 extension HomeViewController: ClearButtonTappedDelegate {
     func clearbuttonPressed() {
-         filterButtonTapped(isSelected: false)
+        filterButtonTapped(isSelected: false)
     }
 }
 

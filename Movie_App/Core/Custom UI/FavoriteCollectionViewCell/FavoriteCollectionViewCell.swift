@@ -8,7 +8,7 @@
 import UIKit
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
-//    
+    //    
     
 }
 

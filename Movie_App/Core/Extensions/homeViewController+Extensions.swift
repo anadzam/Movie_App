@@ -11,7 +11,7 @@ import UIKit
 extension HomeViewController {
     
     enum Color {
-        static let labelFont: UIFont = .systemFont(ofSize: 8)
+        
         static let placeholderColor = UIColor(hex: 0xC7C7C7)
         static let bubbleColor = UIColor(hex: 0xF1F1F1)
         static let textColor = UIColor(hex: 0x191919)
@@ -55,4 +55,7 @@ extension HomeViewController {
         static let scrollSpacing: CGFloat = 30
     }
     
+    enum FontSize {
+        static let label: CGFloat = 18
+    }
 }

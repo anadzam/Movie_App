@@ -9,6 +9,7 @@ import UIKit
 
 class EmptyStateView: UIView {
     
+    //MARK: - components
     private let noMoviesImage: UIImageView = {
         let noMoviesImage = UIImageView()
         noMoviesImage.translatesAutoresizingMaskIntoConstraints = false
@@ -26,16 +27,18 @@ class EmptyStateView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Constraints
     private func setUpImageViewConstraints() {
-           NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate([
             noMoviesImage.widthAnchor.constraint(equalToConstant: EmptyStateViewSizing.imageViewWidth),
             noMoviesImage.heightAnchor.constraint(equalToConstant: EmptyStateViewSizing.imageViewHeight),
-               noMoviesImage.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-               noMoviesImage.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-           ])
-       }
+            noMoviesImage.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            noMoviesImage.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+        ])
+    }
 }
 
+//MARK: - EmptyStateView Extensions
 extension EmptyStateView {
     enum EmptyStateViewSizing {
         static let imageViewWidth: CGFloat = 179

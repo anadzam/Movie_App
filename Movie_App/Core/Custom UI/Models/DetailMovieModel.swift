@@ -14,6 +14,5 @@ struct DetailMovieModel {
     var genreLabel: String
     var movieDuration: String
     var movieYearLabel: String
-//    var aboutMovieLabel: String
     var descriptionLabel: String
 }

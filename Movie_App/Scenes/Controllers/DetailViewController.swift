@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
         movieTitle.text = "The Atonement"
         movieTitle.textColor = .white
         movieTitle.textAlignment = .left
-        movieTitle.font = .boldSystemFont(ofSize: MovieTitleSizing.fontSize)
+        movieTitle.font = UIFont.customFont(.bold, size: FontSize.movieTitle)
         movieTitle.translatesAutoresizingMaskIntoConstraints = false
         return movieTitle
     }()
@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
         ratingLabel.textColor = Constants.Colors.neutral_lighter_grey
         ratingLabel.backgroundColor = Constants.Colors.neutral_darkest_grey
         ratingLabel.textAlignment = .center
-        ratingLabel.font = .systemFont(ofSize: RatingLabelSizing.fontSize)
+        ratingLabel.font = UIFont.customFont(.medium, size: FontSize.ratingLabel)
         ratingLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let finalString = NSAttributedString.attributedString(withIconNamed: "ratingIcon", text: "7.9")
@@ -50,7 +50,7 @@ class DetailViewController: UIViewController {
         genreLabel.textColor = Constants.Colors.neutral_lighter_grey
         genreLabel.backgroundColor = Constants.Colors.neutral_darkest_grey
         genreLabel.textAlignment = .center
-        genreLabel.font = .systemFont(ofSize: GenreLabelSizing.fontSize)
+        genreLabel.font = UIFont.customFont(.medium, size: FontSize.genreLabel)
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         genreLabel.text = "Romance"
         genreLabel.layer.cornerRadius = GenreLabelSizing.cornerRadius
@@ -64,7 +64,7 @@ class DetailViewController: UIViewController {
         movieDuration.textColor = Constants.Colors.neutral_lighter_grey
         movieDuration.backgroundColor = Constants.Colors.neutral_darkest_grey
         movieDuration.textAlignment = .center
-        movieDuration.font = .systemFont(ofSize: MovieDurationLabelSizing.fontSize)
+        movieDuration.font = UIFont.customFont(.medium, size: FontSize.movieDuration)
         movieDuration.translatesAutoresizingMaskIntoConstraints = false
         
         
@@ -100,7 +100,7 @@ class DetailViewController: UIViewController {
         movieYear.textColor =  Constants.Colors.neutral_lighter_grey
         movieYear.backgroundColor = Constants.Colors.neutral_darkest_grey
         movieYear.textAlignment = .center
-        movieYear.font = .systemFont(ofSize: MovieYearLabelSizing.fontSize)
+        movieYear.font = UIFont.customFont(.medium, size: FontSize.movieYear)
         movieYear.translatesAutoresizingMaskIntoConstraints = false
         movieYear.layer.cornerRadius = MovieYearLabelSizing.cornerRadius
         movieYear.layer.masksToBounds = true
@@ -113,7 +113,7 @@ class DetailViewController: UIViewController {
         aboutMovieLabel.text = "About movie"
         aboutMovieLabel.textColor =  Constants.Colors.Neutral_Whisper
         aboutMovieLabel.textAlignment = .left
-        aboutMovieLabel.font = .boldSystemFont(ofSize: AboutMovieLabelSizing.fontSize)
+        aboutMovieLabel.font = UIFont.customFont(.semiBold, size: FontSize.aboutMovieLabel)
         aboutMovieLabel.translatesAutoresizingMaskIntoConstraints = false
         
         return aboutMovieLabel
@@ -126,7 +126,7 @@ class DetailViewController: UIViewController {
         """
         descriptionLabel.textColor =  Constants.Colors.neutral_lighter_grey
         descriptionLabel.textAlignment = .left
-        descriptionLabel.font = .systemFont(ofSize: DescriptionLabelSizing.fontSize)
+        descriptionLabel.font = UIFont.customFont(.medium, size: FontSize.descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = .zero
         
@@ -139,7 +139,7 @@ class DetailViewController: UIViewController {
         let trailerButton = UIButton()
         trailerButton.translatesAutoresizingMaskIntoConstraints = false
         trailerButton.setImage(UIImage(named: Constants.AssetIdentifier.trailerButton.rawValue), for: .normal)
-//        trailerButton.addTarget(self(), action: #selector(<#T##@objc method#>), for: .touchUpInside)
+        //        trailerButton.addTarget(self(), action: #selector(<#T##@objc method#>), for: .touchUpInside)
         return trailerButton
     }()
     
@@ -210,6 +210,7 @@ class DetailViewController: UIViewController {
         setUpDescriptionConstraints()
         setUpTrailerButtonConstraints()
     }
+    
     
     private func setUpMoviePosterConstraints() {
         NSLayoutConstraint.activate([
@@ -294,10 +295,8 @@ class DetailViewController: UIViewController {
             trailerButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: TrailingButtonSizing.leading),
             trailerButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: TrailingButtonSizing.trailing),
             trailerButton.bottomAnchor.constraint(equalTo: moviePoster.bottomAnchor, constant: TrailingButtonSizing.bottom),
-           
         ])
     }
-    
 }
 
 extension NSAttributedString {
@@ -315,4 +314,17 @@ extension NSAttributedString {
         
         return finalString
     }
+}
+
+extension DetailViewController {
+    enum FontSize {
+        static let movieTitle: CGFloat = 20
+        static let ratingLabel: CGFloat = 14
+        static let genreLabel: CGFloat = 14
+        static let movieDuration: CGFloat = 14
+        static let movieYear: CGFloat = 14
+        static let aboutMovieLabel: CGFloat = 16
+        static let descriptionLabel: CGFloat = 14
+    }
+    
 }

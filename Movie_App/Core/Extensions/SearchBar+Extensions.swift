@@ -23,8 +23,8 @@ extension SearchBar {
     }
     enum SearchBarFonts {
         static let clearButtonFontSize: CGFloat = 10
-        static let placeholderFontSize: CGFloat = 16
-    
+        static let placeholderFontSize: CGFloat = 14
+        
     }
     
     enum SearchBarSizing {
@@ -53,12 +53,12 @@ extension SearchBar {
     }
     
     enum CollectionViewSizing {
-        static let widthPadding: CGFloat = 106
+        static let widthPadding: CGFloat = 110
         static let heightPadding: CGFloat = 21
         static let height: CGFloat = 21
         static let leading: CGFloat = 4
         static let trailing: CGFloat = 20
-      
+        
     }
     enum ClearButtonSizing {
         static let heigth: CGFloat = 18

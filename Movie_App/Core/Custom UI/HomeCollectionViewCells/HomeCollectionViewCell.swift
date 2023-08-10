@@ -8,8 +8,9 @@
 import UIKit
 
 class HomeCollectionViewCell: UICollectionViewCell {
-    static let identifier = "homeCollectionViewCell"
+    static let identifier = CellStrings.identifier
     
+    //MARK: - Components
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,10 +23,10 @@ class HomeCollectionViewCell: UICollectionViewCell {
         genreLabel.layer.masksToBounds = true
         genreLabel.translatesAutoresizingMaskIntoConstraints = false
         genreLabel.backgroundColor = Constants.Colors.yellow_primary
-        genreLabel.font = .boldSystemFont(ofSize: CellFontSize.genreFontSize)
+        genreLabel.font = UIFont.customFont(.semiBold, size: CellFontSize.genreFontSize)
         genreLabel.numberOfLines = 1
         genreLabel.textAlignment = .center
-      
+        
         genreLabel.sizeToFit()
         
         
@@ -34,7 +35,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     private let movieTitle: UILabel = {
         let movieTitle = UILabel()
-        movieTitle.font = .boldSystemFont(ofSize: CellFontSize.movieTitleFontSize)
+        movieTitle.font = UIFont.customFont(.medium, size: CellFontSize.movieTitleFontSize)
         movieTitle.textColor = .white
         movieTitle.textAlignment = .left
         movieTitle.numberOfLines = .zero
@@ -44,7 +45,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     private let movieYearLabel: UILabel = {
         let movieYearLabel = UILabel()
-        movieYearLabel.font = .systemFont(ofSize: CellFontSize.movieLabelFontSize)
+        movieYearLabel.font = UIFont.customFont(.regular, size: CellFontSize.movieYearLabelFontSize)
         movieYearLabel.textColor = Constants.Colors.neutral_grey
         movieYearLabel.textAlignment = .center
         movieYearLabel.numberOfLines = .zero
@@ -64,41 +65,42 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         contentView.backgroundColor = .clear
+        addAllSubviews()
+        setUpConstraints()
+        
+    }
+    
+    private func addAllSubviews() {
         contentView.addSubview(imageView)
         contentView.addSubview(genreLabel)
         contentView.addSubview(movieTitle)
         contentView.addSubview(movieYearLabel)
         contentView.addSubview(favoritesButton)
-        setUpConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Add to favorites Button
     @objc func addToFavorites() {
         favoritesButton.isSelected.toggle()
-        
-        
         let imageName = favoritesButton.isSelected ? Constants.AssetIdentifier.selectedFavoritesButton : Constants.AssetIdentifier.favoritesButton
         let image = UIImage(assetIdentifier: imageName)
-        
         favoritesButton.setImage(image, for: .normal)
-        
-        
     }
     
     func configure(with movieModel: MovieModel) {
         imageView.image = UIImage(named: movieModel.imageView)
         genreLabel.text = movieModel.genreLabel
         genreLabel.sizeToFit()
-     
+        
         movieTitle.text = movieModel.moviewTitle
         movieYearLabel.text = movieModel.movieYearLabel
         
     }
-    //
+    
+    //MARK: - Set Up constraints
     private func setUpConstraints() {
         setUpImageViewConstraints()
         setUpGenreLabelConstraints()
@@ -118,18 +120,18 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     private func setUpGenreLabelConstraints() {
-       
+        
         NSLayoutConstraint.activate([
             genreLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: GenreLabelSizing.top),
             genreLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: GenreLabelSizing.bottom),
             genreLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: GenreLabelSizing.width),
-           
+            
             genreLabel.heightAnchor.constraint(equalToConstant: GenreLabelSizing.height),
             genreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: GenreLabelSizing.trailing)
         ])
-
+        
     }
-
+    
     
     private func setUpMovieTitleConstraints() {
         NSLayoutConstraint.activate([
@@ -159,3 +161,5 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
 }
+
+
