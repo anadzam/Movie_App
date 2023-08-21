@@ -43,7 +43,7 @@ class LoadingStateView: UIView {
         colorChangeAnimation.fromValue = Constants.Colors.yellow_primary.cgColor
         let primaryColorWithOpacity = Constants.Colors.yellow_primary.withAlphaComponent(0.6)
         
-        
+    
         colorChangeAnimation.toValue = primaryColorWithOpacity.cgColor
         colorChangeAnimation.duration = 0.5
         colorChangeAnimation.beginTime = strokeEndAnimation.beginTime + strokeEndAnimation.duration - 0.5

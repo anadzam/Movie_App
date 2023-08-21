@@ -8,12 +8,13 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    let apiManager = APIManager()
+    let viewModel = HomeViewModel()
     
     private var labelConstraints: [NSLayoutConstraint] = []
     private var collectionViewConstraints: [NSLayoutConstraint] = []
     private var scrolledConstraints: [NSLayoutConstraint] = []
     private let offsetToScroll: CGFloat = Sizing.scrollSpacing
-    private let viewModel = HomeViewModel()
     private let searchBar = SearchBar()
     
     
@@ -39,7 +40,7 @@ class HomeViewController: UIViewController {
         searchBar.filterButtonDelegate = self
         setUpConstraints()
         hideKeyboard()
-        
+        getMovieData()
     }
     
     
@@ -116,7 +117,6 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    //when filter button is pressed we need updated constraints
     private func updatedConstraints() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -132,21 +132,31 @@ class HomeViewController: UIViewController {
         NSLayoutConstraint.deactivate(scrolledConstraints)
     }
     
-    
+    //MARK: - Get Data from ViewModel
+    func getMovieData() {
+        viewModel.reloadData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        viewModel.fetchFilmsNowShowing()
+        
+    }
 }
 
 //MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.movieModel.count
+        viewModel.filmsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
         cell.layer.masksToBounds = true
-        cell.configure(with: viewModel.movieModel[indexPath.row])
-        
+        cell.configure(with: viewModel.filmsData[indexPath.row])
         return cell
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

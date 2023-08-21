@@ -3,4 +3,134 @@
    uuid = "7166F20D-8FA9-4380-9AD6-F183BD2B93CF"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3F79206-28E9-4D70-8DA6-DE41F5D13F48"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "fetchFilmsNowShowing()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FFEF9B93-71ED-435A-A5F7-EE2B973C5657"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "fetchFilmsNowShowing()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FFEF9B93-71ED-435A-A5F7-EE2B973C5657 - 95018a0e422e361c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Movie_App.HomeViewModel.fetchFilmsNowShowing() -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "26">
+               </Location>
+               <Location
+                  uuid = "FFEF9B93-71ED-435A-A5F7-EE2B973C5657 - 3ad078c5674e8096"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Movie_App.APIModel, Swift.Error&gt;) -&gt; () in Movie_App.HomeViewModel.fetchFilmsNowShowing() -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "147">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D35EF1F8-2F36-46F1-8C7B-DCD7F4E31374"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "fetchFilmsNowShowing()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "995B1CC7-67F1-462F-BBFD-AA804E0800F5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "fetchFilmsNowShowing()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "995B1CC7-67F1-462F-BBFD-AA804E0800F5 - 3ad078c5674e7ff1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Movie_App.APIModel, Swift.Error&gt;) -&gt; () in Movie_App.HomeViewModel.fetchFilmsNowShowing() -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "567">
+               </Location>
+               <Location
+                  uuid = "995B1CC7-67F1-462F-BBFD-AA804E0800F5 - 3ad078c5674e7ff1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Movie_App.APIModel, Swift.Error&gt;) -&gt; () in Movie_App.HomeViewModel.fetchFilmsNowShowing() -&gt; ()"
+                  moduleName = "Movie_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/anidzamelashvili/Documents/Movie_App/Movie_App/Scenes/Controllers/HomeScreen/ViewModel/HomeViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "625">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

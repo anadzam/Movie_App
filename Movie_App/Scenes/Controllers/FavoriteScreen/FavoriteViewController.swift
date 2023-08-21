@@ -22,8 +22,8 @@ class FavoriteViewController: UIViewController {
         let favoriteCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         favoriteCollectionView.backgroundColor = .clear
         favoriteCollectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: HomeCollectionViewCell.identifier)
-        favoriteCollectionView.dataSource = self
-        favoriteCollectionView.delegate = self
+//        favoriteCollectionView.dataSource = self
+//        favoriteCollectionView.delegate = self
         
         view.addSubview(favoriteCollectionView)
         return favoriteCollectionView
@@ -94,18 +94,18 @@ class FavoriteViewController: UIViewController {
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.movieModel.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
-        cell.layer.masksToBounds = true
-        cell.configure(with: viewModel.movieModel[indexPath.row])
-        return cell
-    }
-}
+//extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        viewModel.movieModel.count
+//    }
+//
+////    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewCell.identifier, for: indexPath) as! HomeCollectionViewCell
+////        cell.layer.masksToBounds = true
+////        cell.configure(with: viewModel.movieModel[indexPath.row])
+////        return cell
+////    }
+//}
 
 
 extension FavoriteViewController {

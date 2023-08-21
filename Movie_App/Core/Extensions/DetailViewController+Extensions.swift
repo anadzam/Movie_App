@@ -7,7 +7,15 @@
 
 import Foundation
 extension DetailViewController {
-    
+    enum FontSize {
+        static let movieTitle: CGFloat = 20
+        static let ratingLabel: CGFloat = 14
+        static let genreLabel: CGFloat = 14
+        static let movieDuration: CGFloat = 14
+        static let movieYear: CGFloat = 14
+        static let aboutMovieLabel: CGFloat = 16
+        static let descriptionLabel: CGFloat = 14
+    }
     
     enum MovieTitleSizing {
         static let fontSize: CGFloat = 20
@@ -72,6 +80,7 @@ extension DetailViewController {
         static let top: CGFloat = 8
         static let leading: CGFloat = 16
         static let trailing: CGFloat = -16
+        static let bottom: CGFloat = -50
         
     }
     enum TrailingButtonSizing {

@@ -30,6 +30,7 @@ enum Constants {
         case favoritesButton
         case errorIcon
         case refreshButton
+        case emptyImage
     }
     enum Colors {
         static let yellow_primary = UIColor(hex: 0xF5C518)

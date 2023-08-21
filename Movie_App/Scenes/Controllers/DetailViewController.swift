@@ -119,16 +119,18 @@ class DetailViewController: UIViewController {
         return aboutMovieLabel
     }()
     
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
+    private let descriptionLabel: UITextView = {
+        let descriptionLabel = UITextView()
         descriptionLabel.text = """
-        Thirteen-year-old fledgling writer Briony Tallis irrevocably changes the course of several lives when she accuses her older sister's lover of a crime he did not commit.
-        """
+Thirteen-year-old fledgling writer Briony Tallis irrevocably changes the course of several lives when she accuses her older sister's lover of a crime he did not commit.
+"""
+        descriptionLabel.backgroundColor = .clear
         descriptionLabel.textColor =  Constants.Colors.neutral_lighter_grey
         descriptionLabel.textAlignment = .left
         descriptionLabel.font = UIFont.customFont(.medium, size: FontSize.descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.numberOfLines = .zero
+        descriptionLabel.isEditable = false
+//        descriptionLabel.numberOfLines = .zero
         
         return descriptionLabel
     }()
@@ -217,6 +219,7 @@ class DetailViewController: UIViewController {
             moviePoster.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             moviePoster.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             moviePoster.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+           
         ])
     }
     
@@ -243,7 +246,6 @@ class DetailViewController: UIViewController {
             ratingLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: RatingLabelSizing.leading),
             ratingLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: RatingLabelSizing.width),
             ratingLabel.heightAnchor.constraint(equalToConstant: RatingLabelSizing.height)
-            
         ])
     }
     
@@ -287,6 +289,7 @@ class DetailViewController: UIViewController {
             descriptionLabel.topAnchor.constraint(equalTo: aboutMovieLabel.bottomAnchor, constant: DescriptionLabelSizing.top),
             descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: DescriptionLabelSizing.leading),
             descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: DescriptionLabelSizing.trailing),
+            descriptionLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: DescriptionLabelSizing.bottom)
         ])
     }
     
@@ -298,6 +301,8 @@ class DetailViewController: UIViewController {
         ])
     }
 }
+
+//MARK: - NSAttributedString
 
 extension NSAttributedString {
     static func attributedString(withIconNamed iconName: String, text: String) -> NSAttributedString {
@@ -316,15 +321,3 @@ extension NSAttributedString {
     }
 }
 
-extension DetailViewController {
-    enum FontSize {
-        static let movieTitle: CGFloat = 20
-        static let ratingLabel: CGFloat = 14
-        static let genreLabel: CGFloat = 14
-        static let movieDuration: CGFloat = 14
-        static let movieYear: CGFloat = 14
-        static let aboutMovieLabel: CGFloat = 16
-        static let descriptionLabel: CGFloat = 14
-    }
-    
-}

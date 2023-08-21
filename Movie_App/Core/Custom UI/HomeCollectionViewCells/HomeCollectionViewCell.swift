@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let identifier = CellStrings.identifier
@@ -14,6 +15,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 16
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
@@ -28,7 +31,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         genreLabel.textAlignment = .center
         
         genreLabel.sizeToFit()
-        
         
         return genreLabel
     }()
@@ -89,17 +91,34 @@ class HomeCollectionViewCell: UICollectionViewCell {
         let image = UIImage(assetIdentifier: imageName)
         favoritesButton.setImage(image, for: .normal)
     }
+
     
-    func configure(with movieModel: MovieModel) {
-        imageView.image = UIImage(named: movieModel.imageView)
-        genreLabel.text = movieModel.genreLabel
+    func configure(with film: Films) {
+        if let posters = film.images?.poster {
+               if let firstPoster = posters["1"] { // Check if the "1" key exists
+                   if let medium = firstPoster.medium, let filmImage = medium.film_image {
+                       if let imageURL = URL(string: filmImage) {
+                           imageView.sd_setImage(with: imageURL)
+                       }
+                   }
+               } else if let emptyPoster = film.images?.emptyPoster, emptyPoster.isEmpty {
+                   imageView.image = UIImage(named: Constants.AssetIdentifier.emptyImage.rawValue)
+                   
+               }
+           }
+
+        
+       
+        genreLabel.text = "comedy"
         genreLabel.sizeToFit()
-        
-        movieTitle.text = movieModel.moviewTitle
-        movieYearLabel.text = movieModel.movieYearLabel
-        
-    }
-    
+        movieTitle.text = film.film_name
+        if let releaseDate = film.release_dates?.first, let formattedDate = releaseDate.release_date {
+               movieYearLabel.text = DateFormatter.formatCutomDate(from: formattedDate)
+           } else {
+               movieYearLabel.text = ""
+           }
+     }
+   
     //MARK: - Set Up constraints
     private func setUpConstraints() {
         setUpImageViewConstraints()
